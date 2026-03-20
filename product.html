@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body { background:#f4f4f4; font-family:Arial; padding-bottom:70px; }
+
+.header{ background:white; padding:10px; border-bottom:1px solid #eee; }
+.logo img{ height:55px; }
+
+.flash-deal{ background:#1a8f3c; color:white; text-align:center; padding:12px; font-weight:bold; }
+
+.product-container{ max-width:500px; margin:auto; background:#fff; border-radius:20px; overflow:hidden; }
+
+.main-img-section{ height:320px; display:flex; justify-content:center; align-items:center; background:#000; }
+.product-img{ width:100%; height:100%; object-fit:contain; }
+
+.price-section{ padding:15px; }
+
+.price-tag{ font-size:30px; font-weight:bold; }
+.old-price{ text-decoration:line-through; color:#999; margin-left:10px; }
+.discount-badge{ color:red; margin-left:10px; }
+
+.buy-now-fixed{ background:#1a8f3c; color:white; width:100%; border:none; padding:15px; border-radius:10px; font-weight:bold; }
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+<div class="container d-flex justify-content-between">
+<div class="logo"><img src="logo.png"></div>
+<img src="shopping-cart.png" style="width:30px;">
+</div>
+</header>
+
+<div class="flash-deal">⚡ Flash Combo Deal</div>
+
+<div class="product-container">
+
+<div class="main-img-section">
+<img id="p-img" class="product-img">
+</div>
+
+<div class="price-section">
+
+<h4 id="p-title"></h4>
+
+<div id="rating"></div>
+
+<div>
+<span class="price-tag" id="p-price"></span>
+<span class="old-price" id="p-old"></span>
+<span class="discount-badge" id="p-discount"></span>
+</div>
+
+<p>🚚 Free Delivery by <span id="delivery-date"></span></p>
+
+<button class="buy-now-fixed" id="buyBtn">BUY NOW</button>
+
+</div>
+</div>
+
+<script>
+
+// 👉 URL se ID lo
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id") || 1;
+
+// 👉 API call
+fetch("https://keralamegajackpotlottery.online/bigbasket/get_products.php")
+.then(res => res.json())
+.then(data => {
+
+let product = data.find(p => p.id == id);
+
+if(!product){
+alert("Product not found");
+return;
+}
+
+// discount
+let old = parseFloat(product.old_price);
+let price = parseFloat(product.price);
+let discount = Math.round(((old - price) / old) * 100);
+
+// data set karo
+document.getElementById("p-img").src = "https://keralamegajackpotlottery.online/bigbasket/" + product.image;
+document.getElementById("p-title").innerText = product.title;
+document.getElementById("p-price").innerText = "₹" + price;
+document.getElementById("p-old").innerText = "₹" + old;
+document.getElementById("p-discount").innerText = discount + "% OFF";
+
+document.getElementById("rating").innerText = "⭐ " + product.rating;
+
+// BUY button
+document.getElementById("buyBtn").onclick = function(){
+window.location.href = "cart.html?id=" + product.id;
+};
+
+});
+
+// delivery date
+let d = new Date();
+d.setDate(d.getDate() + 2);
+document.getElementById("delivery-date").innerText =
+d.toLocaleDateString("en-IN",{day:"numeric",month:"long"});
+
+</script>
+
+</body>
+</html>
