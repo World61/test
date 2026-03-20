@@ -673,6 +673,10 @@ console.log("SERVER RESPONSE:", data);
 
 if(data.trim() === "success"){
     window.location = "confirm.html";
+
+}else if(data.trim() === "duplicate"){
+    alert("❌ Same mobile number se order already ho chuka hai");
+
 }else{
     alert("Order failed: " + data);
 }
