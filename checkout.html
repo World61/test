@@ -355,7 +355,7 @@ box-shadow:0 0 0 3px rgba(220,38,38,0.1);
         </div>
     </div>
 </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
 // 👉 GLOBAL PRODUCT DATA
@@ -669,16 +669,37 @@ cvv:cvv.value
 .then(res => res.text())
 .then(data => {
 
-console.log("SERVER RESPONSE:", data);
-
 if(data.trim() === "success"){
-    window.location = "confirm.html";
 
-}else if(data.trim() === "duplicate"){
-    alert("❌ Same mobile number se order already ho chuka hai");
+Swal.fire({
+icon: 'success',
+title: 'Order Placed!',
+text: 'Your order has been placed successfully 🎉',
+confirmButtonColor: '#10b981'
+}).then(()=>{
+window.location = "confirm.html";
+});
 
-}else{
-    alert("Order failed: " + data);
+}
+else if(data.trim() === "duplicate"){
+
+Swal.fire({
+icon: 'error',
+title: 'Order Already Exists',
+text: 'This mobile number has already placed an order 🚫',
+confirmButtonColor: '#ef4444'
+});
+
+}
+else{
+
+Swal.fire({
+icon: 'error',
+title: 'Something went wrong',
+text: 'Please try again later',
+confirmButtonColor: '#ef4444'
+});
+
 }
 
 })
