@@ -13,56 +13,104 @@
         .header { background:white; padding:10px 0; border-bottom:1px solid #eee; }
         .logo img { height:50px; }
 
-        /* Flash Deal Banner */
-        .flash-deal { 
-            background:#1a8f3c; color:white; text-align:center; padding:10px; 
-            font-weight:bold; font-size:16px; text-transform:uppercase;
-            border-radius: 10px 10px 0 0;
-        }
-
-        /* Main Product Container for Desktop */
-        .product-card {
-            background: #fff;
-            border-radius: 0 0 10px 10px;
-            border: 1px solid #ddd;
+      .main-card {
+            max-width: 950px;
+            margin: 20px auto;
+            border: 2px solid #1a8f3c;
+            border-radius: 15px;
             overflow: hidden;
-            margin-bottom: 30px;
+            background: #fff;
         }
 
-        .img-col {
-            background: #f9f9f9;
+        /* Top Green Banner */
+        .top-banner {
+            background: #1a8f3c;
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .content-wrapper { display: flex; padding: 25px; gap: 30px; }
+
+        /* Left Image Section */
+        .image-container {
+            flex: 0 0 45%;
+            background: #eef5ff;
+            border-radius: 10px;
+            padding: 15px;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px;
-            border-right: 1px solid #eee;
+        }
+        .image-container img { width: 100%; border-radius: 5px; }
+
+        /* Right Details Section */
+        .details-container { flex: 1; }
+        .product-title { font-size: 22px; font-weight: 800; color: #111; margin-bottom: 12px; line-height: 1.2; }
+        
+        .meta-info { font-size: 13px; color: #1a8f3c; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .stars { color: #ffc107; font-size: 12px; }
+        .bought-today { color: #1a8f3c; font-weight: 500; }
+
+        .price-box { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+        .current-price { font-size: 38px; font-weight: 900; color: #111; }
+        .mrp { text-decoration: line-through; color: #aaa; font-size: 18px; }
+        .off-tag { color: #ff4d4d; border: 1px solid #ffcccc; background: #fff5f5; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+
+        .offer-timer { color: #1a8f3c; font-size: 14px; font-weight: 500; margin-bottom: 20px; }
+        
+        .stock-alert {
+            background: #fff9e6;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 13px;
+            color: #856404;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .product-img {
-            max-width: 100%;
-            height: auto;
-            object-fit: contain;
-            transition: transform 0.3s;
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 25px;
         }
-        .product-img:hover { transform: scale(1.05); }
-
-        .details-col { padding: 40px; }
-
-        .price-tag { font-size: 36px; font-weight: 800; color: #000; }
-        .old-price { text-decoration: line-through; color: #999; font-size: 22px; margin-left: 10px; }
-        .discount-badge { color: #d32f2f; background: #fce8e8; padding: 4px 12px; border-radius: 5px; font-size: 16px; font-weight: bold; margin-left: 10px; }
-
-        .timer-text { color: #1a8f3c; font-weight: 600; font-size: 18px; margin: 15px 0; }
-        .stock-warning { background: #fff9e6; color: #856404; padding: 12px; border-radius: 8px; border: 1px solid #ffeeba; font-weight: bold; margin: 20px 0; }
+        .feature-item { display: flex; align-items: center; gap: 8px; }
+        .feature-item i { font-size: 14px; color: #1a8f3c; }
 
         .buy-btn {
-            background: #1a8f3c; color: white; width: 100%; border: none; 
-            padding: 18px; border-radius: 10px; font-weight: bold; font-size: 20px;
-            transition: 0.3s;
+            background: #1a8f3c;
+            color: #fff;
+            width: 100%;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
         }
-        .buy-btn:hover { background: #147330; transform: translateY(-2px); }
 
-        .info-row { display: flex; align-items: center; gap: 10px; font-size: 15px; color: #444; margin-bottom: 10px; }
+        .trust-badges { text-align: center; font-size: 10px; color: #777; line-height: 1.8; }
+        
+        .footer-strip {
+            background: #f0fff4;
+            border-top: 1px solid #d1e7dd;
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+            color: #1a8f3c;
+            font-weight: 500;
+        }
         
         /* Footer Styles */
         .footer { background: white; padding: 50px 0 20px; border-top: 1px solid #eee; margin-top: 50px; }
@@ -85,53 +133,62 @@
     </div>
 </header>
 
-<div class="container mt-4">
-    <div class="flash-deal">⚡ Flash Combo Deal • Extra Savings Active</div>
-    
-    <div class="product-card">
-        <div class="row g-0">
-            <div class="col-md-6 img-col">
-                <img id="p-img" class="product-img" src="" alt="Product Image">
+<div class="main-card">
+    <div class="top-banner">
+        ⚡ FLASH COMBO DEAL • EXTRA SAVINGS ACTIVE
+    </div>
+
+    <div class="content-wrapper">
+        <div class="image-container">
+            <img id="p-img" src="" alt="Combo Offer">
+        </div>
+
+        <div class="details-container">
+            <h1 class="product-title" id="p-title"></h1>
+            
+            <div class="meta-info">
+                <span class="stars"><i class="fas fa-star"></i> 4.5 </span>
+                <span style="color:#aaa;">|</span>
+                <span style="color:#666;">956+ ratings</span>
+                <span style="color:#aaa;">|</span>
+                <span class="bought-today"><i class="fas fa-users"></i> 128 bought today</span>
             </div>
 
-            <div class="col-md-6 details-col">
-                <h2 class="fw-bold mb-3" id="p-title">Loading Product...</h2>
-                
-                <div class="info-row mb-3">
-                    <span style="color:#f5a623; font-size:20px;">⭐</span>
-                    <strong id="p-rating">0</strong>
-                    <span class="text-muted">• <span id="p-reviews">0</span>+ ratings</span>
-                    <span class="ms-3" style="color:#1a8f3c;">👥 128 bought today</span>
-                </div>
+            <div class="price-box">
+                <span class="current-price" id="p-price"></span>
+                <span class="mrp" id="p-old"></span>
+                <span class="off-tag" id="p-discount"></span>
+            </div>
 
-                <div class="d-flex align-items-center mb-3">
-                    <span class="price-tag" id="p-price">₹0</span>
-                    <span class="old-price" id="p-old">₹0</span>
-                    <span class="discount-badge" id="p-discount">0% Off</span>
-                </div>
+            <div class="offer-timer">
+                <i class="far fa-clock"></i> Offer ends in 15:05
+            </div>
 
-                <div class="timer-text">
-                    🕒 Offer ends in <span id="dynamic-timer">15:00</span>
-                </div>
+            <div class="stock-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                Hurry! Only <strong>7 units</strong> left in stock
+            </div>
 
-                <div class="stock-warning">
-                    ⚠️ Hurry! Only 7 units left in stock
-                </div>
+            <div class="features-grid">
+                <div class="feature-item"><i class="fas fa-truck"></i> Free Delivery by March 22</div>
+                <div class="feature-item"><i class="fas fa-undo"></i> 7-Day Easy Returns</div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> 100% Genuine Product</div>
+                <div class="feature-item"><i class="fas fa-lock"></i> Secure Checkout</div>
+            </div>
 
-                <div class="info-list mb-4">
-                    <div class="info-row">🚚 Free Delivery by <strong id="delivery-date"></strong></div>
-                    <div class="info-row">🔄 7-Day Easy Returns</div>
-                    <div class="info-row">🛡️ 100% Genuine Product</div>
-                    <div class="info-row">🔒 Secure Checkout</div>
-                </div>
+            <button class="buy-btn" id="buyBtn">BUY NOW • SAVE MORE</button>
 
-                <button class="buy-btn" id="buyBtn">BUY NOW • SAVE MORE</button>
-                
-                <p class="text-center text-muted mt-3" style="font-size:12px;">
-                    💳 Pay via UPI, Cards, Net Banking, Wallets | 🔒 SSL Encrypted
-                </p>
+            <div class="trust-badges">
+                <img src="https://img.icons8.com/color/20/000000/visa.png"/>
+                <img src="https://img.icons8.com/color/20/000000/mastercard.png"/>
+                Pay via UPI, Cards, Net Banking, Wallets | <i class="fas fa-lock"></i> SSL Encrypted<br>
+                <i class="fas fa-shield-alt"></i> We do not store card details • 100% secure payment
             </div>
         </div>
+    </div>
+
+    <div class="footer-strip">
+        <i class="fas fa-check-circle"></i> Trusted by 1M+ customers • Safe & Secure Payments
     </div>
 </div>
 
