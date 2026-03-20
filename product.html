@@ -539,6 +539,7 @@ Shop with confidence and enjoy hassle-free returns.
         document.getElementById("p-price").innerText = "₹" + price;
         document.getElementById("p-old").innerText = "₹" + old;
         document.getElementById("p-discount").innerText = discount + "% Off";
+document.querySelector(".btn-buy-now").innerText = "BUY NOW • ₹" + price;
 
         document.getElementById("buyBtn").onclick = () => {
             window.location.href = "cart.html?id=" + p.id;
@@ -559,8 +560,6 @@ Shop with confidence and enjoy hassle-free returns.
     d.setDate(d.getDate() + 2);
     document.getElementById("delivery-date").innerText = d.toLocaleDateString("en-US", {month: "long", day: "numeric"});
 // Existing price update ke niche ye add karein:
-document.getElementById("floating-p-price").innerText = "₹" + price;
-document.querySelector(".btn-buy-now").innerText = "BUY NOW • ₹" + price;
 </script>
 
 </body>
