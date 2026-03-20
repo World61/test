@@ -229,7 +229,14 @@ box-shadow:0 0 0 3px rgba(220,38,38,0.1);
                         <input type="radio" name="pay" value="debit" onclick="calc()"> Debit Card
                     </label>
                 </div>
-
+<div id="paymentMsg" style="
+display:none;
+margin-top:15px;
+padding:12px;
+border-radius:10px;
+font-size:14px;
+font-weight:600;
+"></div>
                 <div id="offer" class="offer-box">
                     🎉 <b>10% OFF on Credit Card Payments!</b><br>
                     Discount applied automatically at checkout
@@ -666,44 +673,51 @@ cvv:cvv.value
 })
 
 })
+    function showPaymentMsg(message, type="error"){
+
+let box = document.getElementById("paymentMsg");
+
+box.style.display = "block";
+box.innerText = message;
+
+if(type === "error"){
+    box.style.background = "#fef2f2";
+    box.style.color = "#b91c1c";
+    box.style.border = "1px solid #fecaca";
+}
+
+if(type === "success"){
+    box.style.background = "#f0fdf4";
+    box.style.color = "#166534";
+    box.style.border = "1px solid #bbf7d0";
+}
+
+}
 .then(res => res.text())
 .then(data => {
 
 if(data.trim() === "success"){
 
-Swal.fire({
-icon: 'success',
-title: 'Order Placed!',
-text: 'Your order has been placed successfully 🎉',
-confirmButtonColor: '#10b981'
-}).then(()=>{
-window.location = "confirm.html";
-});
+showPaymentMsg("✅ Payment successful! Order placed successfully", "success");
+
+setTimeout(()=>{
+    window.location = "confirm.html";
+},1500);
 
 }
 else if(data.trim() === "duplicate"){
 
-Swal.fire({
-icon: 'error',
-title: 'Order Already Exists',
-text: 'This mobile number has already placed an order 🚫',
-confirmButtonColor: '#ef4444'
-});
+showPaymentMsg("❌ This mobile number has already placed an order. Please try with another number.");
 
 }
 else{
 
-Swal.fire({
-icon: 'error',
-title: 'Something went wrong',
-text: 'Please try again later',
-confirmButtonColor: '#ef4444'
-});
+showPaymentMsg("⚠️ Something went wrong. Please try again.");
 
 }
 
 })
-.catch(err => {
+    .catch(err => {
     console.log(err);
     alert("Network / Server error");
 });
