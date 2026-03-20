@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+body{
+background:#f5f5f5;
+font-family:'Inter',sans-serif;
+margin:0;
+}
+
+/* HEADER */
+.header{
+background:white;
+padding:15px;
+border-bottom:1px solid #ddd;
+}
+
+.logo img{
+height:55px;
+}
+
+/* CENTER BOX */
+
+.confirm-wrapper{
+display:flex;
+align-items:center;
+justify-content:center;
+min-height:70vh;
+}
+
+.confirm-box{
+background:white;
+max-width:500px;
+width:90%;
+padding:40px 30px;
+border-radius:10px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+.check{
+width:70px;
+height:70px;
+background:#1fa64a;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:0 auto 20px auto;
+color:white;
+font-size:40px;
+font-weight:bold;
+}
+
+.title{
+font-size:28px;
+font-weight:700;
+margin-bottom:15px;
+color:#1a202c;
+}
+
+.text{
+font-size:15px;
+color:#444;
+margin-bottom:15px;
+line-height:1.6;
+}
+
+.bold{
+font-weight:600;
+}
+
+.hindi{
+margin-top:20px;
+font-size:16px;
+line-height:1.7;
+}
+
+.small{
+margin-top:20px;
+font-size:13px;
+color:#777;
+}
+
+/* FOOTER */
+
+.footer{
+background:white;
+padding:40px 0;
+margin-top:50px;
+border-top:1px solid #eee;
+}
+
+.footer-title{
+color:#1a8f3c;
+font-weight:bold;
+}
+
+.footer-text{
+color:#666;
+font-size:14px;
+}
+
+.social i{
+width:40px;
+height:40px;
+line-height:40px;
+text-align:center;
+background:white;
+border-radius:50%;
+margin-right:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.store{
+height:45px;
+margin-left:10px;
+}
+
+.quick-links a{
+margin-right:15px;
+color:#444;
+font-size:14px;
+text-decoration:none;
+}
+
+.service-box{
+background:white;
+padding:20px;
+text-align:center;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.service-box p{
+margin-top:10px;
+font-size:14px;
+}
+
+.footer-bottom{
+background:#f8fafc;
+padding:15px 0;
+margin-top:30px;
+font-size:14px;
+border-top:1px solid #eee;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.logo img{
+height:45px;
+}
+
+}
+/* MOBILE */
+
+@media(max-width:768px){
+
+.footer{
+text-align:center;
+padding:30px 15px;
+}
+
+.footer-title{
+font-size:26px;
+}
+
+.footer-text{
+max-width:500px;
+margin:auto;
+}
+
+.social{
+margin-top:15px;
+}
+
+.social i{
+margin:0 8px;
+}
+
+.app{
+text-align:center !important;
+margin-top:25px;
+}
+
+.store{
+height:48px;
+margin:8px;
+}
+
+.quick-links{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:12px;
+margin-top:15px;
+}
+
+.quick-links a{
+display:inline-block;
+font-size:15px;
+}
+
+.service{
+margin-top:25px;
+}
+
+.service-box{
+margin-bottom:15px;
+}
+
+.footer-bottom{
+text-align:center;
+}
+
+.footer-bottom .container{
+flex-direction:column;
+gap:5px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+<div class="container d-flex justify-content-between align-items-center">
+<div class="logo"><img src="logo.png"></div>
+<div><img src="shopping-cart.png" style="width:30px;"></div>
+</div>
+</header>
+
+<div class="confirm-wrapper">
+<div class="confirm-box">
+
+<div class="check">✓</div>
+
+<div class="title">Please Confirm!</div>
+
+<p class="text">
+Thank you for visiting us and making your first purchase!
+</p>
+
+<p class="text bold">
+Your Order is Still Pending. Our team will contact you to confirm your order.
+</p>
+
+<p class="text">
+We look forward to seeing you again.
+</p>
+
+<p class="hindi">
+आपका ऑर्डर अभी भी पेंडिंग है। हमारी टीम आपसे संपर्क करेगी ताकि आपके ऑर्डर की पुष्टि हो सके।
+</p>
+
+<p class="small">
+It's our way of saying thanks for joining our family.
+</p>
+
+</div>
+</div>
+
+<footer class="footer">
+<div class="container">
+
+<div class="row align-items-center mb-4">
+
+<div class="col-md-6">
+<h3 class="footer-title">Big Basket Shopping India</h3>
+<p class="footer-text">
+Your trusted partner for quality products at the best prices. Shop with confidence and enjoy hassle-free returns.
+</p>
+
+<div class="social">
+<i class="fab fa-facebook-f"></i>
+<i class="fab fa-twitter"></i>
+<i class="fab fa-instagram"></i>
+</div>
+</div>
+
+<div class="col-md-6 text-md-end app">
+<h5 class="mb-3">Download Big Basket Ready Mobile App Now!</h5>
+<img src="googleplay.svg" class="store">
+<img src="appstore.svg" class="store">
+</div>
+
+</div>
+
+<hr>
+
+<h6 class="mb-3">Quick Links</h6>
+
+<div class="quick-links">
+<a href="#">About Us</a>
+<a href="#">Contact Us</a>
+<a href="#">FAQs</a>
+<a href="#">Privacy Policy</a>
+<a href="#">Terms and Conditions</a>
+<a href="#">Pricing, Delivery & Return Policy</a>
+<a href="#">Refund Policy</a>
+<a href="#">Pickup Points</a>
+<a href="#">Disclaimer</a>
+</div>
+
+<div class="row service mt-4">
+
+<div class="col-md-3 col-6">
+<div class="service-box">🚚<p>Free Delivery</p></div>
+</div>
+
+<div class="col-md-3 col-6">
+<div class="service-box">🔒<p>Secure Payment</p></div>
+</div>
+
+<div class="col-md-3 col-6">
+<div class="service-box">↩<p>7-Day Returns</p></div>
+</div>
+
+<div class="col-md-3 col-6">
+<div class="service-box">✔<p>100% Authentic</p></div>
+</div>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+<div class="container d-flex justify-content-between flex-wrap">
+<p>© 2025 Avenue E-Commerce Limited (AEL). All Rights Reserved.</p>
+<p>Made with ❤️ in India | Version 2.0</p>
+</div>
+</div>
+
+</footer>
+
+</body>
+</html>

