@@ -548,7 +548,6 @@ let address = document.getElementById("address");
 let pincode = document.getElementById("pincode");
 
 let card = document.getElementById("cardNumber");
-let month = document.getElementById("expMonth");
 let year = document.getElementById("expYear");
 let cvv = document.getElementById("cvv");
 
@@ -596,12 +595,17 @@ clearError(card,"cardError");
 
 
 // MONTH
-if(month.value.length!=2){
-showError(month,"monthError");
-valid=false;
-}else{
-clearError(month,"monthError");
-}
+document.getElementById("expMonth").addEventListener("input",function(){
+
+let m = this.value.replace(/\D/g,'').substring(0,2);
+
+if(m < 1) m = 1;
+if(m > 12) m = 12;
+
+this.value = m;
+
+});
+
 
 
 // YEAR
