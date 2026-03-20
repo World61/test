@@ -264,20 +264,22 @@ box-shadow:0 0 0 3px rgba(220,38,38,0.1);
 <input class="input" id="cvv" maxlength="3" placeholder="CVV *">
 <div class="error-text" id="cvvError">Invalid CVV</div></div>
 
-<!-- ✅ YAHAN LAGAO -->
-<div id="paymentMsg" style="
-display:none;
-margin-top:15px;
-padding:12px;
-border-radius:10px;
-font-size:14px;
-font-weight:600;
-"></div>
+
                 
                 <p class="text-center" style="color:#0b9444; font-weight: 600; font-size: 14px; margin-top: 20px;">
                     Easy 7-Day Return Policy – Hassle-free returns
                 </p>
-
+<div id="paymentMsg" style="
+display:none;
+margin-top:15px;
+padding:14px 16px;
+border-radius:12px;
+font-size:14px;
+font-weight:600;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+transition: all 0.3s ease;
+"></div>
+                
 <button onclick="placeOrder()" class="place-btn btn-active">Place Order Securely</button>            </div>
         </div>
 
@@ -368,26 +370,49 @@ font-weight:600;
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-
-// ✅ MESSAGE FUNCTION (TOP PE HI HOGA)
+    
 function showPaymentMsg(message, type="error"){
 
 let box = document.getElementById("paymentMsg");
 
-box.style.display = "block";
-box.innerText = message;
+box.style.display = "flex";
+box.style.alignItems = "center";
+box.style.gap = "8px";
+
+// Icon set
+let icon = "";
 
 if(type === "error"){
     box.style.background = "#fef2f2";
     box.style.color = "#b91c1c";
     box.style.border = "1px solid #fecaca";
+    icon = "❌";
 }
 
 if(type === "success"){
     box.style.background = "#f0fdf4";
     box.style.color = "#166534";
     box.style.border = "1px solid #bbf7d0";
+    icon = "✅";
 }
+
+if(type === "warning"){
+    box.style.background = "#fff7ed";
+    box.style.color = "#9a3412";
+    box.style.border = "1px solid #fed7aa";
+    icon = "⚠️";
+}
+
+// Message with icon
+box.innerHTML = `${icon} ${message}`;
+
+// Smooth scroll
+window.scrollTo({top:0, behavior:"smooth"});
+
+// Auto hide (optional)
+setTimeout(()=>{
+    box.style.display = "none";
+},4000);
 
 }
 
@@ -655,39 +680,42 @@ cvv:cvv.value
 .then(res => res.text())
 .then(data => {
 
-if(data.trim() === "success"){
+let res = data.trim();
 
-showPaymentMsg("Payment successful! Order placed", "success");
+if(res === "success"){
 
-setTimeout(()=>{
-window.location = "confirm.html";
-},1500);
+    showPaymentMsg("Payment successful! Order placed", "success");
+
+    setTimeout(()=>{
+        window.location = "confirm.html";
+    },1500);
 
 }
-else if(data.trim() === "duplicate"){
+else if(res === "duplicate"){
 
-showPaymentMsg("This mobile number already placed order");
+    showPaymentMsg("⚠️ This mobile number already placed an order", "error");
 
-btn.disabled = false;
-btn.innerText = "Place Order Securely";
+    btn.disabled = false;
+    btn.innerText = "Place Order Securely";
 
 }
 else{
 
-showPaymentMsg("This mobile number has already been used to place an order.");
-    
-btn.disabled = false;
-btn.innerText = "Place Order Securely";
+    showPaymentMsg("❌ Something went wrong. Please try again.", "error");
+
+    btn.disabled = false;
+    btn.innerText = "Place Order Securely";
 
 }
 
 })
 .catch(err => {
-console.log(err);
-showPaymentMsg("Network error");
+    console.log(err);
 
-btn.disabled = false;
-btn.innerText = "Place Order Securely";
+    showPaymentMsg("⚠️ Network error. Please check your connection.", "error");
+
+    btn.disabled = false;
+    btn.innerText = "Place Order Securely";
 });
 
 }
