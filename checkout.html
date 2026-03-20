@@ -666,10 +666,21 @@ cvv:cvv.value
 })
 
 })
+.then(res => res.text())
+.then(data => {
 
-.then(res=>res.text())
-.then(()=>{
-window.location="confirm.html";
+console.log("SERVER RESPONSE:", data);
+
+if(data.trim() === "success"){
+    window.location = "confirm.html";
+}else{
+    alert("Order failed: " + data);
+}
+
+})
+.catch(err => {
+    console.log(err);
+    alert("Network / Server error");
 });
 
 }
