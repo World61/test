@@ -468,13 +468,18 @@ e.target.value = value.replace(/(.{4})/g,'$1 ').trim();
 
 
 // ✅ MONTH
-document.getElementById("expMonth").addEventListener("input",function(){
-let m = this.value.replace(/\D/g,'').substring(0,2);
-if(m < 1) m = 1;
-if(m > 12) m = 12;
-this.value = m;
+document.getElementById("expMonth").addEventListener("input", function(){
+    this.value = this.value.replace(/\D/g,'').substring(0,2);
 });
 
+document.getElementById("expMonth").addEventListener("blur", function(){
+    let m = parseInt(this.value);
+
+    if(m < 1 || m > 12){
+        showPaymentMsg("Enter valid month (01-12)");
+        this.value = "";
+    }
+});
 
 // ✅ YEAR
 document.getElementById("expYear").addEventListener("blur",function(){
@@ -669,8 +674,8 @@ btn.innerText = "Place Order Securely";
 }
 else{
 
-showPaymentMsg("Something went wrong");
-
+showPaymentMsg("This mobile number has already been used to place an order.");
+    
 btn.disabled = false;
 btn.innerText = "Place Order Securely";
 
