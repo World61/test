@@ -158,7 +158,34 @@ gap:5px;
     height:45px;
 }
 }
+.trust-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columns jaisa image mein hai */
+    gap: 10px;
+    margin: 15px 0;
+    padding-top: 15px;
+    border-top: 1px dashed #ddd;
+}
 
+.trust-item {
+    font-size: 13px;
+    color: #1a8f3c; /* BigBasket Green */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.trust-item i {
+    font-size: 14px;
+}
+
+/* Mobile par agar space kam ho toh alignment thik rahegi */
+@media (max-width: 480px) {
+    .trust-item {
+        font-size: 12px;
+    }
+}
 </style>
 </head>
 
@@ -209,9 +236,21 @@ gap:5px;
 </div>
 
 <div class="trust-info">
-<div class="trust-item"><i class="fas fa-shield-check"></i> 100% Secure Payments</div>
-<div class="trust-item"><i class="fas fa-truck"></i> Estimated Delivery: <strong id="delivery-date"></strong></div>
-<div class="trust-item"><i class="fas fa-undo"></i> 7 Days Easy Return Policy</div>
+    <div class="trust-item">
+        <i class="fas fa-check-circle"></i> 100% Genuine Product
+    </div>
+    <div class="trust-item">
+        <i class="fas fa-truck"></i> Free Delivery
+    </div>
+    <div class="trust-item">
+        <i class="fas fa-lock"></i> Secure Checkout
+    </div>
+    <div class="trust-item">
+        <i class="fas fa-users"></i> Trusted by 1M+ Customers
+    </div>
+    <div class="trust-item" style="grid-column: span 2; margin-top: 5px; color: #555;">
+        <i class="fas fa-calendar-alt"></i> Estimated Delivery: <strong id="delivery-date" style="margin-left:4px"></strong>
+    </div>
 </div>
 
 <div class="checkout-box">
