@@ -595,18 +595,12 @@ clearError(card,"cardError");
 
 
 // MONTH
-document.getElementById("expMonth").addEventListener("input",function(){
-
-let m = this.value.replace(/\D/g,'').substring(0,2);
-
-if(m < 1) m = 1;
-if(m > 12) m = 12;
-
-this.value = m;
-
-});
-
-
+if(month.value.length!=2){
+showError(month,"monthError");
+valid=false;
+}else{
+clearError(month,"monthError");
+}
 
 // YEAR
 if(year.value.length!=2){
