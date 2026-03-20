@@ -1,281 +1,213 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="page-title">Product</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Big Basket Offer</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background:#f4f4f4; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial; margin:0; }
+        
+        /* Header */
+        .header { background:white; padding:10px 0; border-bottom:1px solid #eee; }
+        .logo img { height:50px; }
 
-<style>
-/* 🔴 SAME CSS (NO CHANGE) */
-body{background:#f4f4f4;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;padding-bottom:70px;margin:0;}
-.header{background:white;padding:10px 15px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;}
-.logo img{height:55px;}
-.flash-deal{background:#1a8f3c;color:white;text-align:center;padding:12px;font-weight:bold;font-size:14px;text-transform:uppercase;border-radius:20px 20px 0 0;margin-top:10px;}
-.flash-deal,.product-container{max-width:500px;margin-left:31%;}
-.product-container{border:1px solid #ddd;border-radius:0 0 20px 20px;overflow:hidden;background:#fff;}
-.main-img-section{position:relative;height:320px;background:url('https://www.transparenttextures.com/patterns/leaves.png'),linear-gradient(to bottom,#0a220a,#000);display:flex;flex-direction:column;justify-content:center;align-items:center;}
-.product-img{width:100%;height:100%;}
-.price-section{padding:15px;}
-.price-tag{font-size:32px;font-weight:800;color:#000;}
-.old-price{text-decoration:line-through;color:#999;font-size:20px;margin-left:10px;}
-.discount-badge{color:#d32f2f;background:#fce8e8;padding:2px 8px;border-radius:5px;font-size:14px;font-weight:bold;margin-left:10px;}
-.timer-text{color:#1a8f3c;font-weight:600;margin:10px 0;display:flex;align-items:center;gap:5px;}
-.stock-warning{background:#fff9e6;color:#856404;padding:10px;border-radius:8px;border:1px solid #ffeeba;font-weight:bold;margin:15px 0;}
-.info-row{display:flex;align-items:center;gap:10px;font-size:14px;color:#444;margin-bottom:8px;}
-.info-icon{width:18px;color:#1a8f3c;}
-.sticky-btn-container{position:fixed;bottom:0;left:0;width:100%;background:white;padding:10px 15px;border-top:1px solid #eee;z-index:1000;display:flex;justify-content:center;}
-.buy-now-fixed{background:#1a8f3c;color:white;width:100%;max-width:500px;border:none;padding:15px;border-radius:10px;font-weight:bold;font-size:18px;text-transform:uppercase;}
-.trust-banner{background:#f0fff4;color:#1a8f3c;text-align:center;padding:10px;font-size:13px;border-radius:10px;border:1px solid #d1e7dd;margin-top:20px;}
-.footer{background:white;padding:40px 0;margin-top:50px;border-top:1px solid #eee;}
-.footer-title{color:#1a8f3c;font-weight:bold;}
-.footer-text{color:#666;font-size:14px;}
-.social i{width:40px;height:40px;line-height:40px;text-align:center;background:white;border-radius:50%;margin-right:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-.store{height:45px;margin-left:10px;}
-.quick-links a{margin-right:15px;color:#444;font-size:14px;text-decoration:none;}
-.service-box{background:white;padding:20px;text-align:center;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.08);}
-.service-box p{margin-top:10px;font-size:14px;}
-.footer-bottom{background:#f8fafc;padding:15px 0;margin-top:30px;font-size:14px;border-top:1px solid #eee;}
-</style>
+        /* Flash Deal Banner */
+        .flash-deal { 
+            background:#1a8f3c; color:white; text-align:center; padding:10px; 
+            font-weight:bold; font-size:16px; text-transform:uppercase;
+            border-radius: 10px 10px 0 0;
+        }
+
+        /* Main Product Container for Desktop */
+        .product-card {
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            border: 1px solid #ddd;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .img-col {
+            background: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            border-right: 1px solid #eee;
+        }
+
+        .product-img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+        .product-img:hover { transform: scale(1.05); }
+
+        .details-col { padding: 40px; }
+
+        .price-tag { font-size: 36px; font-weight: 800; color: #000; }
+        .old-price { text-decoration: line-through; color: #999; font-size: 22px; margin-left: 10px; }
+        .discount-badge { color: #d32f2f; background: #fce8e8; padding: 4px 12px; border-radius: 5px; font-size: 16px; font-weight: bold; margin-left: 10px; }
+
+        .timer-text { color: #1a8f3c; font-weight: 600; font-size: 18px; margin: 15px 0; }
+        .stock-warning { background: #fff9e6; color: #856404; padding: 12px; border-radius: 8px; border: 1px solid #ffeeba; font-weight: bold; margin: 20px 0; }
+
+        .buy-btn {
+            background: #1a8f3c; color: white; width: 100%; border: none; 
+            padding: 18px; border-radius: 10px; font-weight: bold; font-size: 20px;
+            transition: 0.3s;
+        }
+        .buy-btn:hover { background: #147330; transform: translateY(-2px); }
+
+        .info-row { display: flex; align-items: center; gap: 10px; font-size: 15px; color: #444; margin-bottom: 10px; }
+        
+        /* Footer Styles */
+        .footer { background: white; padding: 50px 0 20px; border-top: 1px solid #eee; margin-top: 50px; }
+        .footer-title { color: #1a8f3c; font-weight: bold; }
+        .service-box { background: white; padding: 20px; text-align: center; border-radius: 12px; border: 1px solid #eee; height: 100%; }
+        .footer-bottom { background: #f8fafc; padding: 20px 0; border-top: 1px solid #eee; margin-top: 30px; }
+
+        /* Responsive Fix */
+        @media (max-width: 768px) {
+            .img-col { border-right: none; border-bottom: 1px solid #eee; }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- HEADER SAME -->
 <header class="header">
-<div class="container d-flex justify-content-between align-items-center">
-<div class="logo"><img src="logo.png"></div>
-<div><img src="shopping-cart.png" style="width:32px;height:32px;"></div>
-</div>
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="logo"><img src="https://www.bigbasket.com/static/v10/images/logo.png" alt="Big Basket"></div>
+        <div><img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" style="width:35px;"></div>
+    </div>
 </header>
 
-<div class="flash-deal">⚡ Flash Combo Deal • Extra Savings Active</div>
+<div class="container mt-4">
+    <div class="flash-deal">⚡ Flash Combo Deal • Extra Savings Active</div>
+    
+    <div class="product-card">
+        <div class="row g-0">
+            <div class="col-md-6 img-col">
+                <img id="p-img" class="product-img" src="" alt="Product Image">
+            </div>
 
-<div class="product-container">
-<div class="main-img-section">
-<img id="p-img" class="product-img">
+            <div class="col-md-6 details-col">
+                <h2 class="fw-bold mb-3" id="p-title">Loading Product...</h2>
+                
+                <div class="info-row mb-3">
+                    <span style="color:#f5a623; font-size:20px;">⭐</span>
+                    <strong id="p-rating">0</strong>
+                    <span class="text-muted">• <span id="p-reviews">0</span>+ ratings</span>
+                    <span class="ms-3" style="color:#1a8f3c;">👥 128 bought today</span>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <span class="price-tag" id="p-price">₹0</span>
+                    <span class="old-price" id="p-old">₹0</span>
+                    <span class="discount-badge" id="p-discount">0% Off</span>
+                </div>
+
+                <div class="timer-text">
+                    🕒 Offer ends in <span id="dynamic-timer">15:00</span>
+                </div>
+
+                <div class="stock-warning">
+                    ⚠️ Hurry! Only 7 units left in stock
+                </div>
+
+                <div class="info-list mb-4">
+                    <div class="info-row">🚚 Free Delivery by <strong id="delivery-date"></strong></div>
+                    <div class="info-row">🔄 7-Day Easy Returns</div>
+                    <div class="info-row">🛡️ 100% Genuine Product</div>
+                    <div class="info-row">🔒 Secure Checkout</div>
+                </div>
+
+                <button class="buy-btn" id="buyBtn">BUY NOW • SAVE MORE</button>
+                
+                <p class="text-center text-muted mt-3" style="font-size:12px;">
+                    💳 Pay via UPI, Cards, Net Banking, Wallets | 🔒 SSL Encrypted
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="price-section">
-
-<h4 class="fw-bold" id="p-title"></h4>
-
-<div class="info-row" style="color:#777;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-<span style="color:#f5a623;font-size:18px;">⭐</span>
-<strong id="p-rating"></strong>
-<span>• <span id="p-reviews"></span>+ ratings</span>
-<span style="color:#1a8f3c;">👥 128 bought today</span>
-</div>
-
-<div class="d-flex align-items-center">
-<span class="price-tag" id="p-price"></span>
-<span class="old-price" id="p-old"></span>
-<span class="discount-badge" id="p-discount"></span>
-</div>
-
-<div class="timer-text">
-🕒 Offer ends in <span id="dynamic-timer">14:55</span>
-</div>
-
-<div class="stock-warning">
-⚠️ Hurry! Only 7 units left in stock
-</div>
-
-<div class="info-row">
-🚚 Free Delivery by <strong id="delivery-date"></strong>
-</div>
-
-<div class="info-row">🔄 7-Day Easy Returns</div>
-<div class="info-row">🛡️ 100% Genuine Product</div>
-<div class="info-row">🔒 Secure Checkout</div>
-
-<button class="buy-now-fixed mt-3 mb-2" id="buyBtn">
-BUY NOW • SAVE MORE
-</button>
-
-<p class="text-center text-muted" style="font-size:11px;">
-💳 Pay via UPI, Cards, Net Banking, Wallets | 🔒 SSL Encrypted
-</p>
-
-<div class="trust-banner">
-✅ Trusted by 1M+ customers • Safe & Secure Payments
-</div>
-
-</div>
-</div>
-
-<div class="sticky-btn-container">
-<button class="buy-now-fixed" id="buyBtn2"></button>
-</div>
-
-<!-- FOOTER -->
 
 <footer class="footer">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <h3 class="footer-title mb-3">Big Basket Shopping India</h3>
+                <p class="text-muted">Your trusted partner for quality products at the best prices. Shop with confidence and enjoy hassle-free returns.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <h5>Download Mobile App</h5>
+                <div class="mt-3">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" height="45" class="me-2">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" height="45">
+                </div>
+            </div>
+        </div>
 
-<div class="container">
+        <div class="row g-3">
+            <div class="col-md-3 col-6"><div class="service-box">🚚<p class="mb-0">Free Delivery</p></div></div>
+            <div class="col-md-3 col-6"><div class="service-box">🔒<p class="mb-0">Secure Payment</p></div></div>
+            <div class="col-md-3 col-6"><div class="service-box">↩<p class="mb-0">7-Day Returns</p></div></div>
+            <div class="col-md-3 col-6"><div class="service-box">✔<p class="mb-0">100% Authentic</p></div></div>
+        </div>
+    </div>
 
-<div class="row align-items-center mb-4">
-
-<!-- LEFT -->
-
-<div class="col-md-6">
-
-<h3 class="footer-title">Big Basket Shopping India</h3>
-
-<p class="footer-text">
-Your trusted partner for quality products at the best prices.
-Shop with confidence and enjoy hassle-free returns.
-</p>
-
-<div class="social">
-
-<i class="fab fa-facebook-f"></i>
-<i class="fab fa-twitter"></i>
-<i class="fab fa-instagram"></i>
-
-</div>
-
-</div>
-
-
-<!-- RIGHT -->
-
-<div class="col-md-6 text-md-end app">
-
-<h5>Download Big Basket Ready Mobile App Now!</h5>
-
-<img src="googleplay.svg" class="store">
-<img src="appstore.svg" class="store">
-
-</div>
-
-</div>
-
-<hr>
-
-<!-- QUICK LINKS -->
-
-<h6 class="mb-3">Quick Links</h6>
-
-<div class="quick-links">
-
-<a href="#">About Us</a>
-<a href="#">Contact Us</a>
-<a href="#">FAQs</a>
-<a href="#">Privacy Policy</a>
-<a href="#">Terms and Conditions</a>
-<a href="#">Pricing, Delivery & Return Policy</a>
-<a href="#">Refund Policy</a>
-<a href="#">Pickup Points</a>
-<a href="#">Disclaimer</a>
-
-</div>
-
-
-<!-- SERVICES -->
-
-<div class="row service mt-4">
-
-<div class="col-md-3 col-6">
-<div class="service-box">
-🚚
-<p>Free Delivery</p>
-</div>
-</div>
-
-<div class="col-md-3 col-6">
-<div class="service-box">
-🔒
-<p>Secure Payment</p>
-</div>
-</div>
-
-<div class="col-md-3 col-6">
-<div class="service-box">
-↩
-<p>7-Day Returns</p>
-</div>
-</div>
-
-<div class="col-md-3 col-6">
-<div class="service-box">
-✔
-<p>100% Authentic</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="footer-bottom">
-
-<div class="container d-flex justify-content-between flex-wrap">
-
-<p>© 2025 Avenue E-Commerce Limited (AEL). All Rights Reserved.</p>
-
-<p>Made with ❤️ in India | Version 2.0</p>
-
-</div>
-
-</div>
-
+    <div class="footer-bottom">
+        <div class="container d-flex justify-content-between">
+            <p class="mb-0">© 2025 Avenue E-Commerce Limited (AEL). All Rights Reserved.</p>
+            <p class="mb-0">Made with ❤️ in India</p>
+        </div>
+    </div>
 </footer>
+
 <script>
-// 👉 ID lo
-const id = new URLSearchParams(window.location.search).get("id") || 1;
+    const id = new URLSearchParams(window.location.search).get("id") || 1;
 
-// 👉 API call
-fetch("https://keralamegajackpotlottery.online/bigbasket/get_products.php")
-.then(res=>res.json())
-.then(data=>{
+    fetch("https://keralamegajackpotlottery.online/bigbasket/get_products.php")
+    .then(res => res.json())
+    .then(data => {
+        let p = data.find(x => x.id == id);
+        if(!p) return;
 
-let p = data.find(x=>x.id==id);
-if(!p) return;
+        let old = parseFloat(p.old_price);
+        let price = parseFloat(p.price);
+        let discount = Math.round(((old-price)/old)*100);
 
-let old = parseFloat(p.old_price);
-let price = parseFloat(p.price);
-let discount = Math.round(((old-price)/old)*100);
+        document.getElementById("page-title").innerText = p.title;
+        document.getElementById("p-img").src = "https://keralamegajackpotlottery.online/bigbasket/" + p.image;
+        document.getElementById("p-title").innerText = p.title;
+        document.getElementById("p-rating").innerText = p.rating;
+        document.getElementById("p-reviews").innerText = p.reviews;
+        document.getElementById("p-price").innerText = "₹" + price;
+        document.getElementById("p-old").innerText = "₹" + old;
+        document.getElementById("p-discount").innerText = discount + "% Off";
 
-// 👉 set data
-document.getElementById("page-title").innerText = p.title;
-document.getElementById("p-img").src = "https://keralamegajackpotlottery.online/bigbasket/"+p.image;
-document.getElementById("p-title").innerText = p.title;
-document.getElementById("p-rating").innerText = p.rating;
-document.getElementById("p-reviews").innerText = p.reviews;
-document.getElementById("p-price").innerText = "₹"+price;
-document.getElementById("p-old").innerText = "₹"+old;
-document.getElementById("p-discount").innerText = discount+"% Off";
+        document.getElementById("buyBtn").onclick = () => {
+            window.location.href = "cart.html?id=" + p.id;
+        };
+    });
 
-document.getElementById("buyBtn").onclick=()=>{
-window.location.href="cart.html?id="+p.id;
-};
+    // Timer Logic
+    setInterval(() => {
+        let el = document.getElementById("dynamic-timer");
+        let t = el.innerText.split(":");
+        let s = parseInt(t[0]) * 60 + parseInt(t[1]);
+        s = s > 0 ? s - 1 : 900;
+        el.innerText = Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2);
+    }, 1000);
 
-document.getElementById("buyBtn2").innerText="BUY NOW • ₹"+price;
-document.getElementById("buyBtn2").onclick=()=>{
-window.location.href="cart.html?id="+p.id;
-};
-
-});
-
-// timer same
-setInterval(()=>{
-let el=document.getElementById("dynamic-timer");
-let t=el.innerText.split(":");
-let s=parseInt(t[0])*60+parseInt(t[1]);
-s=s>0?s-1:900;
-el.innerText=Math.floor(s/60)+":"+("0"+(s%60)).slice(-2);
-},1000);
-
-// delivery date
-let d=new Date();
-d.setDate(d.getDate()+2);
-document.getElementById("delivery-date").innerText=
-d.toLocaleDateString("en-US",{month:"long",day:"numeric"});
+    // Delivery Date
+    let d = new Date();
+    d.setDate(d.getDate() + 2);
+    document.getElementById("delivery-date").innerText = d.toLocaleDateString("en-US", {month: "long", day: "numeric"});
 </script>
 
 </body>
 </html>
-
