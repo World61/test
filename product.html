@@ -119,6 +119,79 @@
         @media (max-width: 768px) {
             .img-col { border-right: none; border-bottom: 1px solid #eee; }
         }
+        /* Mobile Optimization & Floating Bar CSS */
+
+@media (max-width: 768px) {
+    /* Stack content vertically on mobile */
+    .content-wrapper {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .image-container {
+        flex: 0 0 100%;
+        margin-bottom: 20px;
+    }
+
+    /* Floating Bottom Bar (Desktop par hidden rahega) */
+    .floating-buy-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        padding: 10px 15px;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1000;
+        border-top: 1px solid #eee;
+    }
+
+    .floating-buy-bar .btn-buy-now {
+        background: #1a8f3c;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 16px;
+        flex-grow: 1;
+        margin-left: 15px;
+        text-transform: uppercase;
+    }
+
+    .floating-price-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .floating-price-info .price {
+        font-size: 20px;
+        font-weight: 800;
+        color: #000;
+        line-height: 1;
+    }
+
+    .floating-price-info .label {
+        font-size: 12px;
+        color: #666;
+        text-transform: uppercase;
+    }
+
+    /* Padding for body so content doesn't hide behind the bar */
+    body {
+        padding-bottom: 80px;
+    }
+}
+
+/* Hide floating bar on Desktop */
+@media (min-width: 769px) {
+    .floating-buy-bar {
+        display: none;
+    }
+}
     </style>
 </head>
 <body>
@@ -225,7 +298,15 @@
         </div>
     </div>
 </footer>
-
+<div class="floating-buy-bar">
+    <div class="floating-price-info">
+        <span class="label">Total Price</span>
+        <span class="price" id="floating-p-price">₹499</span>
+    </div>
+    <button class="btn-buy-now" onclick="document.getElementById('buyBtn').click()">
+        BUY NOW • ₹499
+    </button>
+</div>
 <script>
     const id = new URLSearchParams(window.location.search).get("id") || 1;
 
@@ -266,6 +347,9 @@
     let d = new Date();
     d.setDate(d.getDate() + 2);
     document.getElementById("delivery-date").innerText = d.toLocaleDateString("en-US", {month: "long", day: "numeric"});
+// Existing price update ke niche ye add karein:
+document.getElementById("floating-p-price").innerText = "₹" + price;
+document.querySelector(".btn-buy-now").innerText = "BUY NOW • ₹" + price;
 </script>
 
 </body>
