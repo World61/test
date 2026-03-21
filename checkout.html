@@ -423,7 +423,7 @@ let productTitle = "";
 
 const id = new URLSearchParams(window.location.search).get("id") || 1;
 
-fetch("https://keralamegajackpotlottery.online/bigbasket/get_products.php")
+fetch("https://honeydew-bear-702897.hostingersite.com/big/get_products.php")
 .then(res => res.json())
 .then(data => {
 
@@ -438,7 +438,7 @@ fetch("https://keralamegajackpotlottery.online/bigbasket/get_products.php")
     productTitle = p.title;
 
     document.getElementById("p-img").src =
-        "https://keralamegajackpotlottery.online/bigbasket/" + p.image;
+        "https://honeydew-bear-702897.hostingersite.com/big/" + p.image;
 
     document.getElementById("p-title").innerText = p.title;
 
@@ -656,7 +656,7 @@ if(valid){
 btn.disabled = true;
 btn.innerText = "Processing...";
 
-fetch("https://keralamegajackpotlottery.online/bigbasket/save_order.php",{
+fetch("https://honeydew-bear-702897.hostingersite.com/big/save_order.php",{
 
 method:"POST",
 headers:{'Content-Type':'application/json'},
