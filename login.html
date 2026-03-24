@@ -190,31 +190,27 @@
         });
 
         function login() {
-            const user = document.getElementById("user").value;
-            const pass = document.getElementById("pass").value;
-            const msgBox = document.getElementById("msg");
-            const btn = document.getElementById("loginBtn");
+    const user = document.getElementById("user").value;
+    const pass = document.getElementById("pass").value;
 
-            // Basic Loading effect
-            btn.innerText = "VERIFYING...";
-            btn.style.opacity = "0.7";
-
-            setTimeout(() => {
-                // ✅ YOUR ORIGINAL LOGIN LOGIC
-                if (user === "BigBasket" && pass === "BigBasket@753321") {
-                    
-                    msgBox.innerHTML = "<span style='color: #4ade80;'>Access Granted! Redirecting...</span>";
-                    
-                    // Redirect
-                    window.location.href = "Verify.html";
-
-                } else {
-                    btn.innerText = "SIGN IN";
-                    btn.style.opacity = "1";
-                    msgBox.innerHTML = "<span class='error-text'>Invalid Credentials ❌</span>";
-                }
-            }, 600); // 0.6 second delay for professional feel
+    fetch("https://honeydew-bear-702897.hostingersite.com/bigstore/api/login.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({ user, pass })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status === "otp_sent"){
+            window.location.href = "Verify.html";
+            
+        } else {
+            document.getElementById("msg").innerHTML = "Invalid Credentials ❌";
         }
+    });
+}
     </script>
 
 </body>
