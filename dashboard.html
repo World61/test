@@ -1,25 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<script>
-(async function(){
-    try{
-let res = await fetch("https://honeydew-bear-702897.hostingersite.com/bigstore/api/check_auth.php", {
-    credentials: "include"
-});
-        let data = await res.json();
-
-        if(data.status !== "ok"){
-            window.location.replace("login.html");
-        } else {
-            document.documentElement.style.display = "block";
-        }
-    } catch(e){
-        window.location.replace("login.html");
-    }
-})();
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BigBasket | Premium Admin Dashboard</title>
