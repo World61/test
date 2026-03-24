@@ -105,23 +105,36 @@ font-size:14px;
 </div>
 
 <script>
-const correctOTP = "963752"; // ⚠️ yaha OTP set karo
-
 function verify(){
-let otp = document.getElementById("otp").value;
+    let otp = document.getElementById("otp").value;
 
-if(otp === correctOTP){
-    document.getElementById("msg").style.color = "lightgreen";
-    document.getElementById("msg").innerText = "Verified ✅ Redirecting...";
-    
-    setTimeout(()=>{
-        window.location = "dashboard.html";
-    },1000);
+    fetch("https://honeydew-bear-702897.hostingersite.com/bigstore/api/verify.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({ otp })
+    })
+    .then(res => res.json())
+    .then(data => {
 
-}else{
-    document.getElementById("msg").style.color = "red";
-    document.getElementById("msg").innerText = "Invalid Code ❌";
-}
+        if(data.status === "success"){
+            document.getElementById("msg").style.color = "lightgreen";
+            document.getElementById("msg").innerText = "Verified ✅";
+
+            setTimeout(()=>{
+                window.location = "dashboard.html";
+            },1000);
+
+        } else if(data.status === "expired"){
+            document.getElementById("msg").innerText = "OTP Expired ❌";
+
+        } else {
+            document.getElementById("msg").innerText = "Invalid OTP ❌";
+        }
+
+    });
 }
 </script>
 
