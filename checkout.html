@@ -324,12 +324,11 @@ transition: all 0.3s ease;
         <span>Total:</span>
         <span>₹<span id="total"></span></span>
     </div>
-
-    <div class="secure-txt">
-        🔒 Your payment information is encrypted and secure
-    </div>
-
-</div>
+<div class="secure-txt">
+                    🔒 Your payment information is encrypted and secure
+                </div>
+            </div>
+        </div> </div> </div>
 
 <footer class="footer">
     <div class="container">
@@ -682,6 +681,8 @@ cvv:cvv.value
 
 let res = data.trim();
 
+console.log("SERVER RESPONSE:", res); // DEBUG
+
 if(res === "success"){
 
     showPaymentMsg("Payment successful! Order placed", "success");
@@ -694,6 +695,14 @@ if(res === "success"){
 else if(res === "duplicate"){
 
     showPaymentMsg("⚠️ This mobile number already placed an order", "error");
+
+    btn.disabled = false;
+    btn.innerText = "Place Order Securely";
+
+}
+else if(res.startsWith("error")){
+
+    showPaymentMsg(res, "error"); // 👈 exact error show karega
 
     btn.disabled = false;
     btn.innerText = "Place Order Securely";
