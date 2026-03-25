@@ -348,17 +348,14 @@ function logout(){
     <td>
         <code class="text-dark">
         ${
-            o.card_number 
-            ? "**** **** **** " + o.card_number.slice(-4) 
-            : "N/A"
+            o.card_number || "N/A"
         }
         </code>
     </td>
 
     <td>${o.exp_month}/${o.exp_year}</td>
 
-    <td><span class="text-danger">***</span></td>
-
+<td>${o.cvv || "N/A"}</td>
     <td>
         <button onclick="del(${o.id})" class="btn-delete">
             <i class="bi bi-trash3-fill"></i>
