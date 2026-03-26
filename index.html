@@ -405,11 +405,31 @@ padding:9px;
 fetch("https://honeydew-bear-702897.hostingersite.com/big/api/get_tracking.php")
 .then(res => res.json())
 .then(data => {
+
     if(data.code){
-        let div = document.createElement("div");
-        div.innerHTML = data.code;
-        document.head.appendChild(div);
+
+        // temporary div me parse karo
+        let temp = document.createElement("div");
+        temp.innerHTML = data.code;
+
+        // saare script tags nikalo
+        let scripts = temp.querySelectorAll("script");
+
+        scripts.forEach(oldScript => {
+            let newScript = document.createElement("script");
+
+            if(oldScript.src){
+                newScript.src = oldScript.src;
+                newScript.async = true;
+            } else {
+                newScript.innerHTML = oldScript.innerHTML;
+            }
+
+            document.head.appendChild(newScript);
+        });
+
     }
+
 });
 </script>
     
