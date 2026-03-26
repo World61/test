@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tracking Settings</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    background: #f1f5f9;
+    font-family: sans-serif;
+}
+
+.container-box {
+    max-width: 900px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+textarea {
+    font-family: monospace;
+}
+</style>
+</head>
+<body>
+
+<div class="container-box">
+    <h3 class="mb-3">📊 Tracking / Meta Ads Code</h3>
+
+    <p class="text-muted">
+        Yahan Meta Pixel / Google Ads / koi bhi tracking script paste karo.
+    </p>
+
+    <textarea id="metaCode" class="form-control" rows="10"
+        placeholder="Paste your Meta Pixel or Tracking Code here..."></textarea>
+
+    <button class="btn btn-primary mt-3" onclick="saveTracking()">
+        💾 Save Tracking
+    </button>
+
+    <button class="btn btn-secondary mt-3" onclick="loadTracking()">
+        🔄 Reload
+    </button>
+</div>
+
+<script>
+const API = "https://honeydew-bear-702897.hostingersite.com/bigbasket/api/";
+
+// Load tracking code
+function loadTracking(){
+    fetch(API + "get_tracking.php", {
+        credentials: "include"
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("metaCode").value = data.code || "";
+    });
+}
+
+// Save tracking code
+function saveTracking(){
+    let code = document.getElementById("metaCode").value;
+
+    let formData = new FormData();
+    formData.append("meta_code", code);
+
+    fetch(API + "update_tracking.php", {
+        method: "POST",
+        body: formData,
+        credentials: "include"
+    })
+    .then(res => res.text())
+    .then(res => {
+        if(res === "success"){
+            alert("✅ Tracking Updated Successfully");
+        } else {
+            alert("❌ Failed to update");
+        }
+    });
+}
+
+// Auto load on page open
+loadTracking();
+</script>
+
+</body>
+</html>
