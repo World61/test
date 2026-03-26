@@ -1,92 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tracking Settings</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMART | Tracking Settings</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-<style>
-body {
-    background: #f1f5f9;
-    font-family: sans-serif;
-}
+    <style>
+        :root {
+            --primary-bg: #f1f5f9;
+            --sidebar-bg: #0f172a;
+            --accent-color: #3b82f6;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
 
-.container-box {
-    max-width: 900px;
-    margin: 50px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-}
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--primary-bg);
+            overflow-x: hidden;
+        }
 
-textarea {
-    font-family: monospace;
-}
-</style>
+        /* --- Sidebar Style --- */
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            position: fixed;
+            left: 0;
+            top: 0;
+            color: white;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 30px 25px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            color: #94a3b8;
+            padding: 14px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+            text-decoration: none;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        /* --- Main Content --- */
+        .main-content {
+            margin-left: 260px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .container-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            margin-top: 1.5rem;
+        }
+
+        /* --- Code Editor Area --- */
+        textarea#metaCode {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            background-color: #1e293b;
+            color: #38bdf8;
+            border-radius: 12px;
+            padding: 20px;
+            border: none;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            resize: vertical;
+        }
+
+        textarea#metaCode:focus {
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+            outline: none;
+        }
+
+        .btn-custom {
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 992px) {
+            .sidebar { left: -260px; }
+            .sidebar.active { left: 0; }
+            .main-content { margin-left: 0; padding: 1rem; }
+            .mobile-nav { display: flex !important; }
+        }
+
+        .mobile-nav {
+            display: none;
+            background: white;
+            padding: 15px 20px;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+    </style>
 </head>
 <body>
 
-<div class="container-box">
-    <h3 class="mb-3">📊 Tracking / Meta Ads Code</h3>
+    <div class="mobile-nav">
+        <h4 class="m-0 fw-bold text-primary">DMART</h4>
+        <button class="btn btn-dark" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+    </div>
 
-    <p class="text-muted">
-        Yahan Meta Pixel / Google Ads / koi bhi tracking script paste karo.
-    </p>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">DMART</div>
+        <a href="dashboard.html" class="nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="tracking.html" class="nav-link active"><i class="bi bi-graph-up-arrow"></i> Tracking</a>
+        <a href="products.html" class="nav-link"><i class="bi bi-box-seam"></i> Products</a>
+        <div class="mt-auto p-4 d-lg-none">
+            <button class="btn btn-danger w-100" onclick="toggleSidebar()">Close Menu</button>
+        </div>
+    </div>
 
-    <textarea id="metaCode" class="form-control" rows="10"
-        placeholder="Paste your Meta Pixel or Tracking Code here..."></textarea>
+    <div class="main-content">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <h2 class="fw-bold m-0">📊 Tracking Settings</h2>
+                <p class="text-muted small mt-1">Manage Meta Pixel, Google Ads, and Custom Scripts</p>
+            </div>
+        </div>
 
-    <button class="btn btn-primary mt-3" onclick="saveTracking()">
-        💾 Save Tracking
-    </button>
+        <div class="container-card">
+            <div class="mb-4">
+                <label class="form-label fw-bold text-dark">Header Scripts (Tracking Code)</label>
+                <p class="text-muted x-small mb-3">
+                    Apne Pixel ya Ads codes ko niche diye gaye box mein paste karein. Yeh saare pages ke <code>&lt;head&gt;</code> mein auto-inject ho jayenge.
+                </p>
+                <textarea id="metaCode" class="form-control" rows="12" 
+                    placeholder=""></textarea>
+            </div>
 
-    <button class="btn btn-secondary mt-3" onclick="loadTracking()">
-        🔄 Reload
-    </button>
-</div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary btn-custom shadow-sm" onclick="saveTracking()">
+                    <i class="bi bi-cloud-arrow-up me-2"></i> Save Tracking
+                </button>
+                <button class="btn btn-light btn-custom text-dark shadow-sm border" onclick="loadTracking()">
+                    <i class="bi bi-arrow-clockwise me-2"></i> Reload
+                </button>
+            </div>
+        </div>
+        
+        <div class="mt-4 p-3 bg-white border-start border-4 border-info rounded shadow-sm">
+            <small class="text-muted d-block"><i class="bi bi-info-circle-fill text-info me-1"></i> <strong>Pro Tip:</strong> Multiple codes paste karne ke liye unhe line-by-line paste karein.</small>
+        </div>
+    </div>
 
-<script>
-const API = "https://honeydew-bear-702897.hostingersite.com/big/api/";
+    <script>
+        const API = "https://honeydew-bear-702897.hostingersite.com/big/api/";
 
-// Load tracking code
-function loadTracking(){
-    fetch(API + "get_tracking.php", {
-        credentials: "include"
-    })
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById("metaCode").value = data.code || "";
-    });
-}
-
-// Save tracking code
-function saveTracking(){
-    let code = document.getElementById("metaCode").value;
-
-    let formData = new FormData();
-    formData.append("meta_code", code);
-
-    fetch(API + "update_tracking.php", {
-        method: "POST",
-        body: formData,
-        credentials: "include"
-    })
-    .then(res => res.text())
-    .then(res => {
-        if(res === "success"){
-            alert("✅ Tracking Updated Successfully");
-        } else {
-            alert("❌ Failed to update");
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
         }
-    });
-}
 
-// Auto load on page open
-loadTracking();
-</script>
+        // 👉 Load tracking code (Logic Intact)
+        function loadTracking(){
+            fetch(API + "get_tracking.php", {
+                credentials: "include"
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("metaCode").value = data.code || "";
+            })
+            .catch(err => console.error("Load Error:", err));
+        }
 
+        // 👉 Save tracking code (Logic Intact)
+        function saveTracking(){
+            const btn = event.target;
+            const originalHtml = btn.innerHTML;
+            
+            btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> Saving...`;
+            btn.disabled = true;
+
+            let code = document.getElementById("metaCode").value;
+            let formData = new FormData();
+            formData.append("meta_code", code);
+
+            fetch(API + "update_tracking.php", {
+                method: "POST",
+                body: formData,
+                credentials: "include"
+            })
+            .then(res => res.text())
+            .then(res => {
+                if(res.trim() === "success"){
+                    alert("✅ Success: Tracking Updated Successfully!");
+                } else {
+                    alert("❌ Error: Failed to update on server.");
+                }
+            })
+            .catch(err => alert("❌ Error: Connection failed."))
+            .finally(() => {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            });
+        }
+
+        // Auto load on page open
+        loadTracking();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
