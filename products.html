@@ -1,142 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BigBasket | Manage Products</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BigBasket | Manage Products</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary-bg: #f1f5f9;
-            --sidebar-bg: #0f172a;
-            --accent-color: #3b82f6;
-            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--primary-bg);
-            overflow-x: hidden;
-        }
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-        /* --- Sidebar Style --- */
-        .sidebar {
-            width: 260px;
-            height: 100vh;
-            background: var(--sidebar-bg);
-            position: fixed;
-            left: 0;
-            top: 0;
-            color: white;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
+<style>
+:root {
+    --primary-bg: #f1f5f9;
+    --sidebar-bg: #0f172a;
+    --accent-color: #3b82f6;
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
 
-        .sidebar-header {
-            padding: 30px 25px;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, #3b82f6, #2563eb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+/* Body */
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--primary-bg);
+    overflow-x: hidden;
+}
 
-        .nav-link {
-            color: #94a3b8;
-            padding: 14px 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: 0.3s;
-            text-decoration: none;
-            border-left: 4px solid transparent;
-        }
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: var(--sidebar-bg);
+    position: fixed;
+    left: 0;
+    top: 0;
+    color: white;
+    transition: 0.3s;
+    z-index: 1000;
+}
 
-        .nav-link:hover, .nav-link.active {
-            color: white;
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 4px solid var(--accent-color);
-        }
+.sidebar-header {
+    padding: 30px 25px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, #3b82f6, #2563eb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        /* --- Main Content --- */
-        .main-content {
-            margin-left: 260px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
+.nav-link {
+    color: #94a3b8;
+    padding: 14px 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    border-left: 4px solid transparent;
+    transition: 0.3s;
+}
 
-        .table-container {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: var(--card-shadow);
-            margin-top: 1.5rem;
-        }
+.nav-link:hover,
+.nav-link.active {
+    color: white;
+    background: rgba(255,255,255,0.05);
+    border-left: 4px solid var(--accent-color);
+}
 
-        .product-img {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+/* Main Content */
+.main-content {
+    margin-left: 260px;
+    padding: 2rem;
+}
 
-        .table thead th {
-            background-color: #f8fafc;
-            color: #64748b;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            padding: 15px;
-        }
+/* Table */
+.table-container {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: var(--card-shadow);
+    margin-top: 1.5rem;
+}
 
-        /* --- Modal Style --- */
-        .modal-content {
-            border-radius: 20px;
-            border: none;
-            box-shadow: var(--card-shadow);
-        }
+.product-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 10px;
+}
 
-        .form-control {
-            border-radius: 10px;
-            padding: 10px 15px;
-            border: 1px solid #e2e8f0;
-            margin-bottom: 15px;
-        }
+.table thead th {
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
 
-        .form-control:focus {
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-            border-color: var(--accent-color);
-        }
+/* Modal */
+.modal-content {
+    border-radius: 20px;
+    border: none;
+}
 
-        /* --- Responsive --- */
-        @media (max-width: 992px) {
-            .sidebar { left: -260px; }
-            .sidebar.active { left: 0; }
-            .main-content { margin-left: 0; padding: 1rem; }
-            .mobile-nav { display: flex !important; }
-        }
+.form-control {
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
 
-        .mobile-nav {
-            display: none;
-            background: white;
-            padding: 15px 20px;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .product-card {
+/* Mobile */
+@media(max-width:992px){
+    .sidebar { left: -260px; }
+    .sidebar.active { left: 0; }
+    .main-content { margin-left: 0; padding: 1rem; }
+    .mobile-nav { display:flex !important; }
+}
+
+.mobile-nav {
+    display: none;
+    background: white;
+    padding: 15px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Product Card (extra design - NOT removed) */
+.product-card {
     display: flex;
     gap: 12px;
     background: white;
     padding: 12px;
     border-radius: 12px;
     margin-bottom: 12px;
-    align-items: center;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.05);
 }
 
 .product-card img {
@@ -144,10 +140,6 @@
     height: 70px;
     border-radius: 10px;
     object-fit: cover;
-}
-
-.product-card .info {
-    flex: 1;
 }
 
 .product-card .title {
@@ -159,223 +151,202 @@
     color: #3b82f6;
     font-weight: bold;
 }
-
-.product-card .rating {
-    font-size: 12px;
-    color: #666;
-}
-
-.product-card .actions {
-    margin-top: 5px;
-}
-
-.product-card button {
-    border: none;
-    background: #f1f5f9;
-    padding: 5px 8px;
-    border-radius: 6px;
-    margin-right: 5px;
-}
-    </style>
+</style>
 </head>
+
 <body>
 
-    <div class="mobile-nav">
-        <h4 class="m-0 fw-bold text-primary">BigBasket</h4>
-        <button class="btn btn-dark" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
-    </div>
+<!-- Mobile Nav -->
+<div class="mobile-nav">
+    <h4 class="fw-bold text-primary m-0">BigBasket</h4>
+    <button class="btn btn-dark" onclick="toggleSidebar()">
+        <i class="bi bi-list"></i>
+    </button>
+</div>
 
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">BigBasket</div>
-        <a href="dashboard.html" class="nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
-        <a href="#" class="nav-link active"><i class="bi bi-box-seam"></i> Products</a>
-          <a href="tracking.html" class="nav-link">
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">BigBasket</div>
+
+    <a href="dashboard.html" class="nav-link">
+        <i class="bi bi-speedometer2"></i> Dashboard
+    </a>
+
+    <a href="#" class="nav-link active">
+        <i class="bi bi-box-seam"></i> Products
+    </a>
+
+    <a href="tracking.html" class="nav-link">
         <i class="bi bi-geo-alt"></i> Tracking
     </a>
-        <div class="mt-auto p-4 d-lg-none">
-            <button class="btn btn-danger w-100" onclick="toggleSidebar()">Close Menu</button>
-        </div>
+
+    <div class="p-4 d-lg-none">
+        <button class="btn btn-danger w-100" onclick="toggleSidebar()">Close</button>
     </div>
+</div>
 
-    <div class="main-content">
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-            <h2 class="fw-bold m-0">Inventory Management</h2>
-            <button class="btn btn-primary px-4 py-2" style="border-radius: 10px;" onclick="openModal()">
-                <i class="bi bi-plus-lg me-2"></i> Add New Product
-            </button>
-        </div>
+<!-- Main -->
+<div class="main-content">
 
-        <div class="table-container">
-            <div class="table-responsive">
-                <table class="table align-middle">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Product Details</th>
-                            <th>Price</th>
-                            <th>Rating</th>
-                            <th class="text-end">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="products">
-                        </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+<div class="d-flex justify-content-between align-items-center">
+    <h2 class="fw-bold">Inventory Management</h2>
 
-    <div class="modal fade" id="modal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content p-4">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold m-0">Add Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body p-0">
-                    <label class="small fw-bold text-muted">Title</label>
-                    <input id="title" placeholder="Product Name" class="form-control">
-                    
-                    <div class="row">
-                        <div class="col-6">
-                            <label class="small fw-bold text-muted">Price</label>
-                            <input id="price" placeholder="₹ Sale Price" class="form-control">
-                        </div>
-                        <div class="col-6">
-                            <label class="small fw-bold text-muted">Old Price</label>
-                            <input id="old" placeholder="₹ MRP" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <label class="small fw-bold text-muted">Rating</label>
-                            <input id="rating" placeholder="4.5" class="form-control">
-                        </div>
-                        <div class="col-6">
-                            <label class="small fw-bold text-muted">Reviews Count</label>
-                            <input id="reviews" placeholder="120" class="form-control">
-                        </div>
-                    </div>
-
-                    <label class="small fw-bold text-muted">Product Image</label>
-                    <input type="file" id="image" class="form-control">
-
-                    <button onclick="add()" class="btn btn-primary w-100 py-2 mt-2 fw-bold" style="border-radius: 10px;">
-                        Upload Product
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const API = "https://honeydew-bear-702897.hostingersite.com/big/api/";
-
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
-
-        // 👉 Load products (Functional Logic Intact)
-        function load(){
-            fetch(API+"get_products.php")
-            .then(res=>res.json())
-            .then(data=>{
-                let html="";
-                data.forEach(p=>{
-                    html+=`
-                    <tr>
-<td>
-  <img src="https://honeydew-bear-702897.hostingersite.com/big/${p.image}" 
-       class="product-img"
-       onerror="this.src='https://placehold.co/50x50?text=No+Img'">
-</td>               
-<td>
-                            <div class="fw-bold">${p.title}</div>
-                            <div class="small text-muted">${p.reviews} Reviews</div>
-                        </td>
-                        <td>
-                            <div class="fw-bold text-primary">₹${p.price}</div>
-                            <del class="small text-muted">₹${p.old_price}</del>
-                        </td>
-                        <td><span class="badge bg-warning text-dark"><i class="bi bi-star-fill me-1"></i> ${p.rating}</span></td>
-                        <td class="text-end">
-    <button onclick="edit(${p.id}, '${p.title}', ${p.price}, ${p.old_price}, ${p.rating}, ${p.reviews})" 
-        class="btn btn-outline-primary btn-sm border-0">
-        <i class="bi bi-pencil-square"></i>
+    <button class="btn btn-primary" onclick="openModal()">
+        <i class="bi bi-plus-lg"></i> Add Product
     </button>
+</div>
 
-    <button onclick="del(${p.id})" class="btn btn-outline-danger btn-sm border-0">
-        <i class="bi bi-trash3-fill"></i>
-    </button>
-</td>
-                    </tr>
-                    `;
-                });
-                document.getElementById("products").innerHTML=html || "<tr><td colspan='5' class='text-center'>No products yet.</td></tr>";
-            })
-            .catch(err => {
-                document.getElementById("products").innerHTML="<tr><td colspan='5' class='text-center text-danger'>Failed to load products.</td></tr>";
-            });
-        }
+<div class="table-container">
+<table class="table align-middle">
+<thead>
+<tr>
+    <th>Image</th>
+    <th>Product</th>
+    <th>Price</th>
+    <th>Rating</th>
+    <th class="text-end">Action</th>
+</tr>
+</thead>
 
-        load();
-let editId = null;
+<tbody id="products"></tbody>
+</table>
+</div>
 
-function edit(id, title, price, old, rating, reviews){
-    editId = id;
+</div>
 
-    document.getElementById("title").value = title;
-    document.getElementById("price").value = price;
-    document.getElementById("old").value = old;
-    document.getElementById("rating").value = rating;
-    document.getElementById("reviews").value = reviews;
+<!-- Modal -->
+<div class="modal fade" id="modal">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content p-4">
 
-    document.querySelector(".modal h5").innerText = "Edit Product";
+<h5 class="fw-bold">Add Product</h5>
 
-    new bootstrap.Modal(document.getElementById('modal')).show();
+<input id="title" placeholder="Product Name" class="form-control">
+
+<div class="row">
+<div class="col-6">
+<input id="price" placeholder="Price" class="form-control">
+</div>
+<div class="col-6">
+<input id="old" placeholder="Old Price" class="form-control">
+</div>
+</div>
+
+<div class="row">
+<div class="col-6">
+<input id="rating" placeholder="Rating" class="form-control">
+</div>
+<div class="col-6">
+<input id="reviews" placeholder="Reviews" class="form-control">
+</div>
+</div>
+
+<input type="file" id="image" class="form-control">
+
+<button onclick="add()" class="btn btn-primary w-100">Upload</button>
+
+</div>
+</div>
+</div>
+
+<script>
+const API = "https://honeydew-bear-702897.hostingersite.com/big/api/";
+
+function toggleSidebar(){
+    document.getElementById("sidebar").classList.toggle("active");
 }
-        // 👉 Add product (Functional Logic Intact)
-        function add(){
-            const btn = event.target;
-            btn.innerText = "Uploading...";
-            btn.disabled = true;
 
-            let fd=new FormData();
-            fd.append("title",document.getElementById("title").value);
-            fd.append("price",document.getElementById("price").value);
-            fd.append("old_price",document.getElementById("old").value);
-            fd.append("rating",document.getElementById("rating").value);
-            fd.append("reviews",document.getElementById("reviews").value);
-            fd.append("image",document.getElementById("image").files[0]);
+/* LOAD */
+function load(){
+fetch(API+"get_products.php")
+.then(res=>res.json())
+.then(data=>{
+let html="";
 
-            fetch(API+"add_product.php",{method:"POST",body:fd})
-            .then(() => {
-                load();
-                // Close modal and reset fields
-                bootstrap.Modal.getInstance(document.getElementById('modal')).hide();
-                location.reload(); 
-            })
-            .finally(() => {
-                btn.innerText = "Upload Product";
-                btn.disabled = false;
-            });
-        }
+data.forEach(p=>{
+html+=`
+<tr>
+<td>
+<img src="https://honeydew-bear-702897.hostingersite.com/big/${p.image}"
+class="product-img"
+onerror="this.src='https://placehold.co/50x50?text=No+Img'">
+</td>
 
-        // 👉 Delete (Functional Logic Intact)
-        function del(id){
-            if(confirm("Are you sure you want to delete this product?")){
-                fetch(API+"delete_product.php?id="+id)
-                .then(()=>load());
-            }
-        }
+<td>
+<b>${p.title}</b><br>
+<small>${p.reviews} Reviews</small>
+</td>
 
-        // Open modal
-        function openModal(){
-            new bootstrap.Modal(document.getElementById('modal')).show();
-        }
-    </script>
+<td>
+<b class="text-primary">₹${p.price}</b><br>
+<del>${p.old_price}</del>
+</td>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<td>${p.rating}</td>
+
+<td class="text-end">
+<button onclick="edit(${p.id},'${p.title}',${p.price},${p.old_price},${p.rating},${p.reviews})">
+Edit
+</button>
+
+<button onclick="del(${p.id})">
+Delete
+</button>
+</td>
+</tr>`;
+});
+
+document.getElementById("products").innerHTML = html || "No products";
+});
+}
+
+load();
+
+/* EDIT */
+let editId=null;
+
+function edit(id,title,price,old,rating,reviews){
+editId=id;
+
+titleEl = document.getElementById("title").value=title;
+priceEl = document.getElementById("price").value=price;
+oldEl = document.getElementById("old").value=old;
+ratingEl = document.getElementById("rating").value=rating;
+reviewsEl = document.getElementById("reviews").value=reviews;
+
+new bootstrap.Modal(document.getElementById("modal")).show();
+}
+
+/* ADD */
+function add(){
+let fd=new FormData();
+
+fd.append("title",title.value);
+fd.append("price",price.value);
+fd.append("old_price",old.value);
+fd.append("rating",rating.value);
+fd.append("reviews",reviews.value);
+fd.append("image",image.files[0]);
+
+fetch(API+"add_product.php",{method:"POST",body:fd})
+.then(()=>location.reload());
+}
+
+/* DELETE */
+function del(id){
+if(confirm("Delete?")){
+fetch(API+"delete_product.php?id="+id)
+.then(()=>load());
+}
+}
+
+/* OPEN MODAL */
+function openModal(){
+new bootstrap.Modal(document.getElementById("modal")).show();
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
